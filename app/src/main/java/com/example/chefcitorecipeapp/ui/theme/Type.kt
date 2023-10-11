@@ -2,9 +2,17 @@ package com.example.chefcitorecipeapp.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.chefcitorecipeapp.R
+
+
+val customFontFamily = FontFamily(
+    Font(R.font.), // Reemplaza "my_custom_font" con el nombre de tu fuente personalizada
+    Font(R.font.another_custom_font) // Puedes agregar más fuentes personalizadas aquí
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
