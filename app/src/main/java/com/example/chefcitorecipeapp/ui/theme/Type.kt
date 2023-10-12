@@ -10,19 +10,40 @@ import com.example.chefcitorecipeapp.R
 
 
 val customFontFamily = FontFamily(
-    Font(R.font.), // Reemplaza "my_custom_font" con el nombre de tu fuente personalizada
-    Font(R.font.another_custom_font) // Puedes agregar más fuentes personalizadas aquí
+    Font(R.font.neogloss),
+    Font(R.font.neoglossblack),
+    Font(R.font.neoglossbold),
+    Font(R.font.neoglossextrabold),
+    Font(R.font.neoglossextralight),
+    Font(R.font.neoglosslight),
+    Font(R.font.neoglossmedium),
+    Font(R.font.neoglosssemibold),
+    Font(R.font.neoglossthin)
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+    bodySmall = TextStyle(
+        fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
+        fontSize = 5.sp,
+        lineHeight = 5.sp,
         letterSpacing = 0.5.sp
-    )
+    ),
+    titleLarge = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 85.sp,
+        lineHeight = 32.sp,
+        letterSpacing = 0.sp
+    ),
+    titleMedium =  TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 40.sp,
+        lineHeight = 34.sp,
+        letterSpacing = 0.sp
+    ),
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
