@@ -10,15 +10,7 @@ import com.example.chefcitorecipeapp.R
 
 
 val customFontFamily = FontFamily(
-    Font(R.font.neogloss),
-    Font(R.font.neoglossblack),
-    Font(R.font.neoglossbold),
-    Font(R.font.neoglossextrabold),
-    Font(R.font.neoglossextralight),
-    Font(R.font.neoglosslight),
-    Font(R.font.neoglossmedium),
-    Font(R.font.neoglosssemibold),
-    Font(R.font.neoglossthin)
+    Font(R.font.sneakyo)
 )
 
 // Set of Material typography styles to start with
@@ -26,22 +18,43 @@ val Typography = Typography(
     bodySmall = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 5.sp,
+        fontSize = 10.sp,
+        lineHeight = 5.sp,
+        letterSpacing = 0.5.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp,
+        lineHeight = 5.sp,
+        letterSpacing = 0.5.sp
+    ),
+    bodyLarge = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 30.sp,
         lineHeight = 5.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 85.sp,
-        lineHeight = 90.sp,
+        fontSize = 60.sp,
+        lineHeight = 80.sp,
         letterSpacing = 0.sp
     ),
     titleMedium =  TextStyle(
         fontFamily = customFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 40.sp,
+        fontSize = 30.sp,
         lineHeight = 34.sp,
+        letterSpacing = 0.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 55.sp,
+        lineHeight = 80.sp,
         letterSpacing = 0.sp
     ),
     /* Other default text styles to override

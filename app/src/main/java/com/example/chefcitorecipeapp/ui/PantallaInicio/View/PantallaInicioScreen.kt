@@ -113,7 +113,9 @@ fun InicioScreen(){
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          //Mandar a Pantalla Principal
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
 
             ) {

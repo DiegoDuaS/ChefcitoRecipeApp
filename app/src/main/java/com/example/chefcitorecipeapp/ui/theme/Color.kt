@@ -12,3 +12,4 @@ val Pink40 = Color(0xFF7D5260)
 
 val Fondo = Color(0xFFD9D9D9)
 val ColorMain = Color(0xFF991D1D)
+val Tarjeta = Color(0xFFC98F8F)
