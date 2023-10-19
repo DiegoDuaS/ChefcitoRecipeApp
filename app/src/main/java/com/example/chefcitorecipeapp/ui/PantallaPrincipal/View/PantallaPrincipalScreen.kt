@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -45,6 +46,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
@@ -52,26 +54,31 @@ import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
 import com.example.chefcitorecipeapp.ui.theme.Tarjeta
 import coil.compose.AsyncImage
+import com.example.chefcitorecipeapp.navigation.Screen
 
 data class BottomNavigationItem(
     val name:String,
     val iconoselected: ImageVector,
     val iconounselected: ImageVector,
+    val ruta: String,
     )
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavController) {
     val items = listOf(
         BottomNavigationItem(
             name = "Despensa",
             iconoselected = Icons.Filled.List,
-            iconounselected = Icons.Outlined.List
+            iconounselected = Icons.Outlined.List,
+            ruta = Screen.Despensa.route
         ),
         BottomNavigationItem(
             name = "Nueva Receta",
             iconoselected = Icons.Filled.Add,
-            iconounselected = Icons.Outlined.Add
+            iconounselected = Icons.Outlined.Add,
+            ruta = Screen.NewReceta.route
         )
     )
 
@@ -92,6 +99,12 @@ fun MainScreen() {
                             selected = selectedItemIndex == index,
                             onClick = {
                                 selectedItemIndex = index
+                                navController.navigate(item.ruta)
+                            },
+                            label = {
+                                    Text(
+                                        text = item.name
+                                    )
                             },
                             icon = {
                                 BadgedBox(
@@ -108,6 +121,7 @@ fun MainScreen() {
                                         },
                                         contentDescription = null
                                     )
+
                                 }
                             }
                         )
@@ -124,6 +138,7 @@ fun MainScreen() {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .height(80.dp)
                             .background(color = ColorMain),
                         contentAlignment = Alignment.Center
                     ) {
@@ -134,7 +149,7 @@ fun MainScreen() {
                         ) {
                             Text(
                                 text = "Chefcito",
-                                style = MaterialTheme.typography.titleSmall,
+                                style = MaterialTheme.typography.bodyLarge,
                                 modifier = Modifier
                                     .padding(vertical = 0.dp)
                                     .padding(horizontal = 4.dp),
@@ -229,6 +244,6 @@ fun RecetaCard(){
 @Composable
 fun MainScreenPreview() {
     ChefcitoRecipeAppTheme {
-        MainScreen()
+
     }
 }

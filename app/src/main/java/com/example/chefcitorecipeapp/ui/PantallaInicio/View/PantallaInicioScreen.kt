@@ -16,6 +16,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -33,93 +34,105 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.chefcitorecipeapp.R
+import com.example.chefcitorecipeapp.navigation.Screen
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InicioScreen(){
+fun InicioScreen(navController: NavController){
 
     var user by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
 
-    Box(
+    Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Fondo),
-        contentAlignment = Alignment.Center
+            .background(color = Fondo)
     ){
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(color = Fondo),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Box(
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
                 modifier = Modifier
-                    .clip(CircleShape)
-                    .size(250.dp)
-                    .background(color = ColorMain),
-                contentAlignment = Alignment.Center,
-            ){
-                Image(
-                    painter = painterResource(id = R.drawable.chefcitologo),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(200.dp)
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "Chefcito",
-                style =  MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .padding(vertical = 0.dp)
-                    .padding(horizontal = 4.dp),
-                textAlign = TextAlign.Center,
-                color = Color.Black
-            )
-            Text(
-                text = "Recipe App",
-                style =  MaterialTheme.typography.titleMedium,
-                modifier = Modifier
-                    .padding(vertical = 0.dp)
-                    .padding(horizontal = 4.dp),
-                textAlign = TextAlign.Center,
-                color = Color.Black
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            OutlinedTextField(
-                value = user,
-                onValueChange = { user = it },
-                textStyle = MaterialTheme.typography.bodySmall,
-                label = { Text("User") },
-                singleLine = true
-            )
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                textStyle = MaterialTheme.typography.bodySmall,
-                label = { Text("Password") },
-                singleLine = true
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = {
-                          //Mandar a Pantalla Principal
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
-
+                    .fillMaxWidth()
+                    .background(color = Fondo),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("Entrar")
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(250.dp)
+                        .background(color = ColorMain),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.chefcitologo),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(200.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = "Chefcito",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier
+                        .padding(vertical = 0.dp)
+                        .padding(horizontal = 4.dp),
+                    textAlign = TextAlign.Center,
+                    color = Color.Black
+                )
+                Text(
+                    text = "Recipe App",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier
+                        .padding(vertical = 0.dp)
+                        .padding(horizontal = 4.dp),
+                    textAlign = TextAlign.Center,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                OutlinedTextField(
+                    value = user,
+                    onValueChange = { user = it },
+                    textStyle = MaterialTheme.typography.bodySmall,
+                    label = { Text("User") },
+                    singleLine = true
+                )
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    textStyle = MaterialTheme.typography.bodySmall,
+                    label = { Text("Password") },
+                    singleLine = true
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = {
+                        navController.navigate("Main"){
+                            popUpTo("Authentication") {
+                                inclusive = false
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+
+                ) {
+                    Text("Entrar")
+                }
             }
         }
     }
@@ -130,6 +143,6 @@ fun InicioScreen(){
 @Composable
 fun InicioScreenPreview() {
     ChefcitoRecipeAppTheme {
-        InicioScreen()
+
     }
 }

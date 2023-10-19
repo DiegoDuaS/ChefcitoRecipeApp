@@ -10,15 +10,33 @@ import com.example.chefcitorecipeapp.R
 
 
 val customFontFamily = FontFamily(
-    Font(R.font.sneakyo)
+    Font(R.font.montserratextralight),
+    Font(R.font.montserratextralightitalic),
+    Font(R.font.montserratitalic),
+    Font(R.font.montserratlight),
+    Font(R.font.montserratlightitalic),
+    Font(R.font.montserratmedium),
+    Font(R.font.montserratmediumitalic),
+    Font(R.font.montserratregular),
+    Font(R.font.montserratthin),
+    Font(R.font.montserratthinitalic),
+    Font(R.font.montserratextralight)
+)
+
+val lightFamily = FontFamily(
+    Font(R.font.montserratlight),
+)
+
+val mediumFamily = FontFamily(
+    Font(R.font.montserratmedium),
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodySmall = TextStyle(
-        fontFamily = customFontFamily,
+        fontFamily = lightFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp,
+        fontSize = 10.sp,
         lineHeight = 5.sp,
         letterSpacing = 0.5.sp
     ),
@@ -30,31 +48,31 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     ),
     bodyLarge = TextStyle(
-        fontFamily = customFontFamily,
+        fontFamily = lightFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 30.sp,
         lineHeight = 5.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = customFontFamily,
-        fontWeight = FontWeight.Bold,
+        fontFamily = lightFamily,
+        fontWeight = FontWeight.ExtraLight,
         fontSize = 60.sp,
         lineHeight = 80.sp,
         letterSpacing = 0.sp
     ),
     titleMedium =  TextStyle(
-        fontFamily = customFontFamily,
-        fontWeight = FontWeight.SemiBold,
+        fontFamily = mediumFamily,
+        fontWeight = FontWeight.Thin,
         fontSize = 30.sp,
         lineHeight = 34.sp,
         letterSpacing = 0.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = customFontFamily,
+        fontFamily = mediumFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 55.sp,
-        lineHeight = 80.sp,
+        fontSize = 20.sp,
+        lineHeight = 30.sp,
         letterSpacing = 0.sp
     ),
     /* Other default text styles to override

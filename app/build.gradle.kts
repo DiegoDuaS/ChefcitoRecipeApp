@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.chefcitorecipeapp"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.chefcitorecipeapp"
@@ -79,4 +79,9 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation ("androidx.navigation:navigation-compose:2.x.x")
+    implementation ("androidx.navigation:navigation-compose:2.x.x")
+    implementation ("androidx.navigation:navigation-compose:2.7.0")
+    implementation ("androidx.navigation:navigation-compose:2.4.0")
 }
