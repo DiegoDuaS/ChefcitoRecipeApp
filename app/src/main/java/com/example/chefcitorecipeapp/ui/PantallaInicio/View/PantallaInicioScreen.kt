@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.navigation.Screen
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
@@ -143,6 +144,7 @@ fun InicioScreen(navController: NavController){
 @Composable
 fun InicioScreenPreview() {
     ChefcitoRecipeAppTheme {
-
+        val navController = rememberNavController()
+        InicioScreen(navController = navController)
     }
 }

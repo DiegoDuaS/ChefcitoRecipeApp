@@ -1,37 +1,50 @@
 package com.example.chefcitorecipeapp.ui.Despensa.View
 
-import androidx.compose.foundation.Image
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.chefcitorecipeapp.R
-import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
+import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
+
+data class IngredientesParaPreview(
+    val name:String,
+    val cantidad: Int,
+    val tipo: String
+)
 
 @Composable
 fun DespensaScreen(navController: NavController){
@@ -84,6 +97,100 @@ fun DespensaScreen(navController: NavController){
                 }
             }
         }
+        LazyColumn{
+
+        }
+    }
+}
+
+@SuppressLint("UnrememberedMutableState")
+@Composable
+fun IngredienteCard(ingrediente: IngredientesParaPreview){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(color = ColorMain)
+            .height(80.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = ColorMain,
+        ),
+
+    ){
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ){
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Text(text = "${ingrediente.name}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .padding(vertical = 0.dp)
+                        .padding(horizontal = 4.dp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Button(
+                            onClick = { (ingrediente.cantidad - 1) },
+                            shape = CircleShape,
+                            modifier = Modifier
+                                .size(25.dp)
+                        ) {
+                            Icon(imageVector = Icons.Outlined.Clear, contentDescription = null)
+                        }
+                        Text(
+                            text = "${ingrediente.cantidad}",
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier
+                                .padding(vertical = 0.dp)
+                                .padding(horizontal = 4.dp),
+                            textAlign = TextAlign.Center,
+                            color = Color.White
+                        )
+                        Button(
+                            onClick = { (ingrediente.cantidad + 1) },
+                            shape = CircleShape,
+                            modifier = Modifier
+                                .size(30.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+                        ) {
+                            Text(
+                                text = "+",
+                                style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier
+                                    .padding(vertical = 0.dp)
+                                    .padding(horizontal = 4.dp),
+                                textAlign = TextAlign.Center,
+                                color = Color.Black
+                            )
+                        }
+                    }
+                    Text(
+                        text = "${ingrediente.tipo}",
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -91,6 +198,10 @@ fun DespensaScreen(navController: NavController){
 @Composable
 fun DespensaScreenPreview() {
     ChefcitoRecipeAppTheme {
-
+        val navController = rememberNavController()
+        //DespensaScreen(navController = navController)
+        IngredienteCard(ingrediente = IngredientesParaPreview("Banana",
+            3,"Unidad")
+        )
     }
 }

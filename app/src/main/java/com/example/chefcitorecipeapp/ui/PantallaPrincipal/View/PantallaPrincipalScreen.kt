@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -47,6 +49,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
@@ -56,6 +59,8 @@ import com.example.chefcitorecipeapp.ui.theme.Tarjeta
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.navigation.Screen
 
+
+
 data class BottomNavigationItem(
     val name:String,
     val iconoselected: ImageVector,
@@ -63,10 +68,27 @@ data class BottomNavigationItem(
     val ruta: String,
     )
 
+//Clase provicional para preview
+data class RecetasParaPreview(
+    val name:String,
+    val cocinero: String,
+    val tiempo:String
+)
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController) {
+
+    //Lista provicional
+    val recetas = listOf(
+        RecetasParaPreview("Receta 1", "Chef 1", "30"),
+        RecetasParaPreview("Receta 2", "Chef 2", "45"),
+        RecetasParaPreview("Receta 3", "Chef 3", "20"),
+        RecetasParaPreview("Receta 4", "Chef 4", "15"),
+        RecetasParaPreview("Receta 5", "Chef 5", "120"),
+    )
+
     val items = listOf(
         BottomNavigationItem(
             name = "Despensa",
@@ -163,7 +185,17 @@ fun MainScreen(navController: NavController) {
                             )
                         }
                     }
+                    LazyColumn {
+                        items(recetas){ receta ->
+                            RecetaCard(receta = receta, navController)
+                        }
+                        item{
+                            Spacer(modifier = Modifier.height(60.dp))
+                        }
+                    }
+
                 }
+
             }
         )
     }
@@ -173,17 +205,17 @@ fun MainScreen(navController: NavController) {
 
 
 @Composable
-fun RecetaCard(){
+fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
             .background(color = Fondo)
             .clickable {
-                //Mandar a Receta Page (Va a necesitar el Id de la receta)
+                navController.navigate(Screen.Receta.route)
             },
         colors = CardDefaults.cardColors(
-            containerColor = Tarjeta
+            containerColor = ColorMain
         ),
     ){
         Row(
@@ -194,15 +226,16 @@ fun RecetaCard(){
         ) {
             Box(
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(130.dp)
                     .background(color = Color.Transparent)
                     .align(Alignment.CenterVertically)
             ){
                 AsyncImage(
+                    //Imagen provicional para preview
                     model = "https://biencasero.clarin.com/advf/imagenes/4c28fc4fab6f6.jpg",
                     contentDescription = null,
                     modifier = Modifier
-                        .size(150.dp)
+                        .size(130.dp)
                 )
             }
             Column(
@@ -211,7 +244,7 @@ fun RecetaCard(){
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
-                    text = "Nombre",
+                    text = "${receta.name}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -219,7 +252,7 @@ fun RecetaCard(){
                     color = Color.White
                 )
                 Text(
-                    text = "por: ",
+                    text = "por: ${receta.cocinero}",
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -227,7 +260,7 @@ fun RecetaCard(){
                     textAlign = TextAlign.End,
                 )
                 Text(
-                    text = "Tiempo",
+                    text = "${receta.tiempo} minutos",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -235,6 +268,8 @@ fun RecetaCard(){
                     textAlign = TextAlign.End,
                 )
             }
+
+
         }
 
     }
@@ -244,6 +279,7 @@ fun RecetaCard(){
 @Composable
 fun MainScreenPreview() {
     ChefcitoRecipeAppTheme {
-
+        val navController = rememberNavController()
+        MainScreen(navController = navController)
     }
 }
