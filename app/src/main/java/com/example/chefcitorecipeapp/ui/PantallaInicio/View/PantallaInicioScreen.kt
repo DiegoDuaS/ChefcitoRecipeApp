@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -108,15 +109,32 @@ fun InicioScreen(navController: NavController){
                     value = user,
                     onValueChange = { user = it },
                     textStyle = MaterialTheme.typography.bodySmall,
-                    label = { Text("User") },
+                    label = { Text(
+                        text = "User",
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.Black
+                    ) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
                     textStyle = MaterialTheme.typography.bodySmall,
-                    label = { Text("Password") },
-                    singleLine = true
+                    label = { Text(
+                        text = "Password",
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.Black
+                    )},
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))

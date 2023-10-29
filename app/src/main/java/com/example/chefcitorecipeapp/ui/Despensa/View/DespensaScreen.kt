@@ -16,9 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -29,18 +27,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.chefcitorecipeapp.ui.PantallaPrincipal.View.RecetaCard
-import com.example.chefcitorecipeapp.ui.PantallaPrincipal.View.RecetasParaPreview
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
@@ -71,7 +65,7 @@ fun DespensaScreen(navController: NavController){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.Transparent),
+                .background(color = Fondo),
             contentAlignment = Alignment.TopCenter
         ) {
             Column(
@@ -119,7 +113,7 @@ fun DespensaScreen(navController: NavController){
                 }
                 LazyColumn{
                     item{
-                        Spacer(modifier = Modifier.height(60.dp))
+                        Spacer(modifier = Modifier.height(40.dp))
                     }
                     items(ingredientes){ ingrediente ->
                         IngredienteCard(ingrediente)
@@ -154,7 +148,7 @@ fun DespensaScreen(navController: NavController){
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(
-                                            text = "Nuevo Ingrediente",
+                                            text = "Nuevo Ingrediente +",
                                             style = MaterialTheme.typography.bodyMedium,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -162,24 +156,6 @@ fun DespensaScreen(navController: NavController){
                                             textAlign = TextAlign.Center,
                                             color = Color.White
                                         )
-                                        Box(
-                                            modifier = Modifier
-                                                .clip(CircleShape)
-                                                .padding(16.dp)
-                                                .background(Color.White)
-                                                .size(25.dp),
-                                            contentAlignment = Alignment.Center,
-                                        ){
-                                            Text(
-                                                text = "+",
-                                                style = MaterialTheme.typography.bodySmall,
-                                                modifier = Modifier
-                                                    .padding(vertical = 0.dp)
-                                                    .padding(horizontal = 4.dp),
-                                                textAlign = TextAlign.Center,
-                                                color = Color.Black
-                                            )
-                                        }
                                     }
                                 }
                             }
@@ -191,6 +167,7 @@ fun DespensaScreen(navController: NavController){
     }
 }
 
+//Falta Funcionalidad para subir o bajar la canitdad de Ingedientes que tiene
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun IngredienteCard(ingrediente: IngredientesParaPreview){
@@ -241,15 +218,28 @@ fun IngredienteCard(ingrediente: IngredientesParaPreview){
                         ) {
                             Text("-")
                         }
-                        Text(
-                            text = " \t ${ingrediente.cantidad} \t",
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = Color.White
-                        )
+                        if(ingrediente.cantidad < 10) {
+                            Text(
+                                text = " \t 0${ingrediente.cantidad} \t",
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                                    .padding(vertical = 0.dp)
+                                    .padding(horizontal = 4.dp),
+                                textAlign = TextAlign.Center,
+                                color = Color.White
+                            )
+                        }
+                        else{
+                            Text(
+                                text = " \t ${ingrediente.cantidad} \t",
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                                    .padding(vertical = 0.dp)
+                                    .padding(horizontal = 4.dp),
+                                textAlign = TextAlign.Center,
+                                color = Color.White
+                            )
+                        }
                         Button(
                             onClick = { (ingrediente.cantidad + 1) },
                             shape = CircleShape,
