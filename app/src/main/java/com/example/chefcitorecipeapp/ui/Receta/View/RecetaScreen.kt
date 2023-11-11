@@ -187,7 +187,7 @@ fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = ColorMain),
+            .background(color = Fondo),
         colors = CardDefaults.cardColors(
             containerColor = ColorMain
         ),
@@ -243,7 +243,7 @@ fun CardPasos(pasos: List<String>){
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = ColorMain),
+            .background(color = Fondo),
         colors = CardDefaults.cardColors(
             containerColor = ColorMain
         ),

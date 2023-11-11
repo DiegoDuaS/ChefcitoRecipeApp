@@ -123,7 +123,7 @@ fun DespensaScreen(navController: NavController){
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(8.dp)
-                                .background(color = ColorMain)
+                                .background(color = Fondo)
                                 .height(80.dp),
                             colors = CardDefaults.cardColors(
                                 containerColor = ColorMain,
@@ -175,7 +175,7 @@ fun IngredienteCard(ingrediente: IngredientesParaPreview){
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = ColorMain)
+            .background(color = Fondo)
             .height(80.dp),
         colors = CardDefaults.cardColors(
             containerColor = ColorMain,

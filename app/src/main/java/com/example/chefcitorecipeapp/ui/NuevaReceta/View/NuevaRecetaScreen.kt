@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Button
@@ -42,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -159,7 +161,7 @@ fun NewRecipeScreen(navController: NavController){
                                     },
                                     singleLine = true,
                                     modifier = Modifier
-                                        .height(70.dp)
+                                        .height(60.dp)
                                 )
                                 OutlinedTextField(
                                     value = time,
@@ -167,7 +169,7 @@ fun NewRecipeScreen(navController: NavController){
                                     textStyle = MaterialTheme.typography.bodySmall,
                                     label = {
                                         Text(
-                                            text = "Tiempo de Preparacion",
+                                            text = "Tiempo de Preparacion (min)",
                                             style = MaterialTheme.typography.bodySmall,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -178,13 +180,14 @@ fun NewRecipeScreen(navController: NavController){
                                     },
                                     singleLine = true,
                                     modifier = Modifier
-                                        .height(70.dp)
+                                        .height(60.dp),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                                 )
                                 Card(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(8.dp)
-                                        .background(color = ColorMain),
+                                        .background(color = Fondo),
                                     colors = CardDefaults.cardColors(
                                         containerColor = ColorMain,
                                     ),
@@ -193,7 +196,8 @@ fun NewRecipeScreen(navController: NavController){
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .background(color = ColorMain),
-                                        horizontalAlignment = Alignment.CenterHorizontally
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+
                                     ) {
                                         Row(
 
@@ -210,7 +214,67 @@ fun NewRecipeScreen(navController: NavController){
                                         }
                                         CheckBoxes(ingredientes = ingredientes)
                                     }
+                                }
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(8.dp)
+                                        .background(color = Fondo),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = ColorMain,
+                                    ),
+                                ){
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(color = ColorMain),
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ){
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(
+                                            text = "Pasos",
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            modifier = Modifier
+                                                .padding(vertical = 0.dp)
+                                                .padding(horizontal = 4.dp),
+                                            textAlign = TextAlign.Center,
+                                            color = Color.White
+                                        )
+                                        Spacer(modifier = Modifier.width(30.dp))
+                                        if (pasos.isEmpty()){
+                                            Text(
+                                                text = "No tienes pasos agregados",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                modifier = Modifier
+                                                    .padding(vertical = 0.dp)
+                                                    .padding(horizontal = 4.dp),
+                                                textAlign = TextAlign.Center,
+                                                color = Color.White
+                                            )
+                                            Spacer(modifier = Modifier.width(10.dp))
+                                        }
+                                        else{
+                                            pasos.forEachIndexed{ index: Int, paso: String ->
+                                                val num = index + 1
+                                                Row(
 
+                                                ){
+                                                    Spacer(modifier = Modifier.width(8.dp))
+                                                    Text(
+                                                        text = "$num. $paso",
+                                                        style = MaterialTheme.typography.bodySmall,
+                                                        modifier = Modifier
+                                                            .padding(vertical = 0.dp)
+                                                            .padding(horizontal = 4.dp),
+                                                        textAlign = TextAlign.Center,
+                                                        color = Color.White
+                                                    )
+                                                    Spacer(modifier = Modifier.width(8.dp))
+                                                }
+
+                                            }
+                                        }
+                                    }
                                 }
                                 OutlinedTextField(
                                     value = pasonuevo,
@@ -229,7 +293,7 @@ fun NewRecipeScreen(navController: NavController){
                                     },
                                     singleLine = true,
                                     modifier = Modifier
-                                        .height(70.dp)
+                                        .height(60.dp)
                                 )
                                 Button(
                                     onClick = {
@@ -255,65 +319,8 @@ fun NewRecipeScreen(navController: NavController){
                                 }
                                 Card(
                                     modifier = Modifier
-                                        .fillMaxWidth()
                                         .padding(8.dp)
-                                        .background(color = ColorMain),
-                                    colors = CardDefaults.cardColors(
-                                        containerColor = ColorMain,
-                                    ),
-                                ){
-                                    Column(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .background(color = ColorMain),
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ){
-                                        Text(
-                                            text = "Pasos",
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            modifier = Modifier
-                                                .padding(vertical = 0.dp)
-                                                .padding(horizontal = 4.dp),
-                                            textAlign = TextAlign.Center,
-                                            color = Color.White
-                                        )
-                                        Spacer(modifier = Modifier.width(30.dp))
-                                        if (pasos.isEmpty()){
-                                            Text(
-                                                text = "No tienes pasos agregados",
-                                                style = MaterialTheme.typography.bodySmall,
-                                                modifier = Modifier
-                                                    .padding(vertical = 0.dp)
-                                                    .padding(horizontal = 4.dp),
-                                                textAlign = TextAlign.Center,
-                                                color = Color.White
-                                            )
-                                        }
-                                        else{
-                                            pasos.forEachIndexed{ index: Int, paso: String ->
-                                                val num = index + 1
-                                                Row(
-
-                                                ){
-                                                    Text(
-                                                        text = "$num. $paso",
-                                                        style = MaterialTheme.typography.bodySmall,
-                                                        modifier = Modifier
-                                                            .padding(vertical = 0.dp)
-                                                            .padding(horizontal = 4.dp),
-                                                        textAlign = TextAlign.Center,
-                                                        color = Color.White
-                                                    )
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-                                Card(
-                                    modifier = Modifier
-                                        .padding(8.dp)
-                                        .background(color = Color.LightGray)
+                                        .background(color = Fondo)
                                         .width(300.dp)
                                         .height(300.dp)
                                         .clickable {
