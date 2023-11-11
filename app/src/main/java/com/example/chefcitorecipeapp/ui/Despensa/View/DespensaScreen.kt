@@ -282,7 +282,7 @@ fun IngredienteCard(ingrediente: IngredientesParaPreview){
                             color = Color.White
                         )
                     }
-                    else if(ingrediente.tipo.equals("Gramo")){
+                    else if(ingrediente.tipo.equals("Gramos")){
                         Text(
                             text = stringResource(id = R.string.grams),
                             style = MaterialTheme.typography.bodySmall,
