@@ -45,6 +45,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -91,13 +92,13 @@ fun MainScreen(navController: NavController) {
 
     val items = listOf(
         BottomNavigationItem(
-            name = "Despensa",
+            name = stringResource(id = R.string.despensa),
             iconoselected = Icons.Filled.List,
             iconounselected = Icons.Outlined.List,
             ruta = Screen.Despensa.route
         ),
         BottomNavigationItem(
-            name = "Nueva Receta",
+            name = stringResource(id = R.string.nuevareceta),
             iconoselected = Icons.Filled.Add,
             iconounselected = Icons.Outlined.Add,
             ruta = Screen.NewReceta.route
@@ -253,7 +254,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     color = Color.White
                 )
                 Text(
-                    text = "por: ${receta.cocinero}",
+                    text = stringResource(id = R.string.by_chef) + "${receta.cocinero}",
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -261,7 +262,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     textAlign = TextAlign.End,
                 )
                 Text(
-                    text = "${receta.tiempo} minutos",
+                    text = "${receta.tiempo} " + stringResource(id = R.string.minutos),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),

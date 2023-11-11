@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">ChefcitoRecipeApp</string>
+    <string name="despensa">Pantry</string>
+    <string name="nuevareceta">New Recipe</string>
+    <string name="nombre_receta">Recipe Name</string>
+    <string name="tiempo_preparacion_ask">Preparation Time (min)</string>
+    <string name="ingredientes_titulo_newr">Ingredients</string>
+    <string name="pasos_titulo_newr">Steps</string>
+    <string name="no_pasos_message">You have no added steps</string>
+    <string name="paso_nuevo">New Step</string>
+    <string name="add_paso">Add Step</string>
+    <string name="agregar_imagen">"Add Image + "</string>
+    <string name="agregar_receta">Add Recipe</string>
+    <string name="app_recetario">Recipe App</string>
+    <string name="user">User</string>
+    <string name="contrasena">Password</string>
+    <string name="enter">Enter</string>
+    <string name="by_chef">"by: "</string>
+    <string name="minutos">minutes</string>
+    <string name="preparation_time">"Preparation Time: "</string>
+    <string name="new_ingredient">New Ingredient +</string>
+    <string name="unit">Unit</string>
+    <string name="grams">Grams</string>
+    <string name="liters">Liters</string>
 </resources>

@@ -30,11 +30,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
@@ -100,7 +102,7 @@ fun DespensaScreen(navController: NavController){
                             )
                         }
                         Text(
-                            text = "Despensa",
+                            text = stringResource(id = R.string.despensa),
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier
                                 .padding(vertical = 0.dp)
@@ -148,7 +150,7 @@ fun DespensaScreen(navController: NavController){
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(
-                                            text = "Nuevo Ingrediente +",
+                                            text = stringResource(id = R.string.new_ingredient),
                                             style = MaterialTheme.typography.bodyMedium,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -258,15 +260,39 @@ fun IngredienteCard(ingrediente: IngredientesParaPreview){
                             )
                         }
                     }
-                    Text(
-                        text = "${ingrediente.tipo}",
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier
-                            .padding(vertical = 0.dp)
-                            .padding(horizontal = 4.dp),
-                        textAlign = TextAlign.Center,
-                        color = Color.White
-                    )
+                    if(ingrediente.tipo.equals("Unidad")){
+                        Text(
+                            text = stringResource(id = R.string.unit),
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier
+                                .padding(vertical = 0.dp)
+                                .padding(horizontal = 4.dp),
+                            textAlign = TextAlign.Center,
+                            color = Color.White
+                        )
+                    }
+                    else if(ingrediente.tipo.equals("Litro")){
+                        Text(
+                            text = stringResource(id = R.string.liters),
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier
+                                .padding(vertical = 0.dp)
+                                .padding(horizontal = 4.dp),
+                            textAlign = TextAlign.Center,
+                            color = Color.White
+                        )
+                    }
+                    else if(ingrediente.tipo.equals("Gramo")){
+                        Text(
+                            text = stringResource(id = R.string.grams),
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier
+                                .padding(vertical = 0.dp)
+                                .padding(horizontal = 4.dp),
+                            textAlign = TextAlign.Center,
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }

@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -96,7 +97,7 @@ fun InicioScreen(navController: NavController){
                     color = Color.Black
                 )
                 Text(
-                    text = "Recipe App",
+                    text = stringResource(id = R.string.app_recetario),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier
                         .padding(vertical = 0.dp)
@@ -112,7 +113,7 @@ fun InicioScreen(navController: NavController){
                     onValueChange = { user = it },
                     textStyle = MaterialTheme.typography.bodySmall,
                     label = { Text(
-                        text = "User",
+                        text = stringResource(id = R.string.user),
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
@@ -127,7 +128,7 @@ fun InicioScreen(navController: NavController){
                     onValueChange = { password = it },
                     textStyle = MaterialTheme.typography.bodySmall,
                     label = { Text(
-                        text = "Password",
+                        text = stringResource(id = R.string.contrasena),
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
@@ -153,7 +154,15 @@ fun InicioScreen(navController: NavController){
                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
 
                 ) {
-                    Text("Entrar")
+                    Text(
+                        text = stringResource(id = R.string.enter),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
                 }
             }
         }
