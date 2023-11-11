@@ -29,12 +29,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
@@ -141,7 +143,7 @@ fun RecetaScreen(navController: NavController){
                                 contentAlignment = Alignment.Center
                             ){
                                 Text(
-                                    text = "Por: Persona",
+                                    text = stringResource(id = R.string.by_chef) + " Persona",
                                     style = MaterialTheme.typography.bodyMedium,
                                     modifier = Modifier
                                         .padding(vertical = 0.dp)
@@ -159,7 +161,7 @@ fun RecetaScreen(navController: NavController){
                                 contentAlignment = Alignment.Center
                             ){
                                 Text(
-                                    text = "Tiempo de Preparación: 120 Minutos",
+                                    text = stringResource(id = R.string.preparation_time),
                                     style = MaterialTheme.typography.bodyMedium,
                                     modifier = Modifier
                                         .padding(vertical = 0.dp)
@@ -197,7 +199,7 @@ fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Text(
-                text = "Ingredientes",
+                text = stringResource(id = R.string.ingredientes_titulo_newr),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .padding(vertical = 0.dp)
@@ -253,7 +255,7 @@ fun CardPasos(pasos: List<String>){
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Text(
-                text = "Pasos",
+                text = stringResource(id = R.string.pasos_titulo_newr),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .padding(vertical = 0.dp)

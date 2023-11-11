@@ -43,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -125,7 +126,7 @@ fun NewRecipeScreen(navController: NavController){
                             )
                         }
                         Text(
-                            text = "Nueva Receta",
+                            text = stringResource(id = R.string.nuevareceta),
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier
                                 .padding(vertical = 0.dp)
@@ -150,7 +151,7 @@ fun NewRecipeScreen(navController: NavController){
                                     textStyle = MaterialTheme.typography.bodySmall,
                                     label = {
                                         Text(
-                                            text = "Nombre Receta",
+                                            text = stringResource(id = R.string.nombre_receta),
                                             style = MaterialTheme.typography.bodySmall,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -169,7 +170,7 @@ fun NewRecipeScreen(navController: NavController){
                                     textStyle = MaterialTheme.typography.bodySmall,
                                     label = {
                                         Text(
-                                            text = "Tiempo de Preparacion (min)",
+                                            text = stringResource(id = R.string.tiempo_preparacion_ask),
                                             style = MaterialTheme.typography.bodySmall,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -203,7 +204,7 @@ fun NewRecipeScreen(navController: NavController){
 
                                         ) {
                                             Text(
-                                                text = "Ingredientes",
+                                                text = stringResource(id = R.string.ingredientes_titulo_newr),
                                                 style = MaterialTheme.typography.bodyMedium,
                                                 modifier = Modifier
                                                     .padding(vertical = 0.dp)
@@ -232,7 +233,7 @@ fun NewRecipeScreen(navController: NavController){
                                     ){
                                         Spacer(modifier = Modifier.width(8.dp))
                                         Text(
-                                            text = "Pasos",
+                                            text = stringResource(id = R.string.pasos_titulo_newr),
                                             style = MaterialTheme.typography.bodyMedium,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -243,7 +244,7 @@ fun NewRecipeScreen(navController: NavController){
                                         Spacer(modifier = Modifier.width(30.dp))
                                         if (pasos.isEmpty()){
                                             Text(
-                                                text = "No tienes pasos agregados",
+                                                text = stringResource(id = R.string.no_pasos_message),
                                                 style = MaterialTheme.typography.bodySmall,
                                                 modifier = Modifier
                                                     .padding(vertical = 0.dp)
@@ -282,7 +283,7 @@ fun NewRecipeScreen(navController: NavController){
                                     textStyle = MaterialTheme.typography.bodySmall,
                                     label = {
                                         Text(
-                                            text = "Paso Nuevo",
+                                            text = stringResource(id = R.string.paso_nuevo),
                                             style = MaterialTheme.typography.bodySmall,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -309,7 +310,7 @@ fun NewRecipeScreen(navController: NavController){
 
                                 ) {
                                     Text(
-                                        text = "Agregar Paso",
+                                        text = stringResource(id = R.string.add_paso),
                                         style = MaterialTheme.typography.bodySmall,
                                         modifier = Modifier
                                             .padding(vertical = 0.dp)
@@ -339,7 +340,7 @@ fun NewRecipeScreen(navController: NavController){
                                     ) {
                                         Spacer(modifier = Modifier.height(130.dp))
                                         Text(
-                                            text = "Agregar Imagen +",
+                                            text = stringResource(id = R.string.agregar_imagen),
                                             style = MaterialTheme.typography.bodyMedium,
                                             modifier = Modifier
                                                 .padding(vertical = 0.dp)
@@ -357,7 +358,7 @@ fun NewRecipeScreen(navController: NavController){
 
                                 ) {
                                     Text(
-                                        text = "Agregar Receta",
+                                        text = stringResource(id = R.string.agregar_receta),
                                         style = MaterialTheme.typography.bodySmall,
                                         modifier = Modifier
                                             .padding(vertical = 0.dp)
