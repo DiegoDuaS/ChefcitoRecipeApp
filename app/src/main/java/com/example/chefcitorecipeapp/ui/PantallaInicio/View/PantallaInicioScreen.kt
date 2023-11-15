@@ -1,5 +1,6 @@
 package com.example.chefcitorecipeapp.ui.PantallaInicio.View
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -42,13 +43,16 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.navigation.Screen
+import com.example.chefcitorecipeapp.ui.PantallaInicio.Model.PantallaInicioViewModel
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InicioScreen(navController: NavController){
+fun InicioScreen(navController: NavController,
+                 viewModel: PantallaInicioViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+){
 
     var user by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
@@ -145,11 +149,26 @@ fun InicioScreen(navController: NavController){
 
                 Button(
                     onClick = {
-                        navController.navigate("Main"){
-                            popUpTo("Authentication") {
-                                inclusive = false
+
+                        val usuarioS: String = user.toString()
+                        val ContraS: String = password.toString()
+
+                        println(usuarioS)
+                        println(ContraS)
+
+
+                        viewModel.signInWithEmailAndPassword("sol22102@uvg.edu.gt","patata2"){
+                            navController.navigate("Main"){
+                                popUpTo("Authentication") {
+                                    inclusive = false
+                                }
                             }
                         }
+
+
+
+
+
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
 

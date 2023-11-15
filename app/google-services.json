@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "215475149745",
+    "firebase_url": "https://sistema-login-92a5f-default-rtdb.firebaseio.com",
+    "project_id": "sistema-login-92a5f",
+    "storage_bucket": "sistema-login-92a5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215475149745:android:99c19e23f5af3a8e31fb90",
+        "android_client_info": {
+          "package_name": "com.example.chefcitorecipeapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxO8ms_NtI71jGU1TD41BdMhLwOXX7cPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
