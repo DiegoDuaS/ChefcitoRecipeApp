@@ -60,8 +60,8 @@ fun InicioScreen(navController: NavController,
                  viewModel: PantallaInicioViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ){
 
-    var user by remember { mutableStateOf(TextFieldValue("")) }
-    var password by remember { mutableStateOf(TextFieldValue("")) }
+    var user by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     val newuser = buildAnnotatedString {
         val text = stringResource(id = R.string.signin)
         append(text)
@@ -171,13 +171,8 @@ fun InicioScreen(navController: NavController,
                 Button(
                     onClick = {
 
-                        val usuarioS: String = user.toString()
-                        val ContraS: String = password.toString()
 
-                        println(usuarioS)
-                        println(ContraS)
-
-                        viewModel.signInWithEmailAndPassword("sol22102@uvg.edu.gt","patata2"){
+                        viewModel.signInWithEmailAndPassword(user,password){
                             navController.navigate("Main"){
                                 popUpTo("Authentication") {
                                     inclusive = false
