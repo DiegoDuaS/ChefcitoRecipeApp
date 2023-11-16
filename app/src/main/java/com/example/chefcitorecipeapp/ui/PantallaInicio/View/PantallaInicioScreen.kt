@@ -184,11 +184,6 @@ fun InicioScreen(navController: NavController,
                                 }
                             }
                         }
-
-
-
-
-
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
 
@@ -202,30 +197,32 @@ fun InicioScreen(navController: NavController,
                         textAlign = TextAlign.Center,
                         color = Color.White
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
 
-                    ){
-                        Text(
-                            text = stringResource(id = R.string.questionusaurio),
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = Color.Black
-                        )
-                        ClickableText(
-                            text = newuser,
-                            onClick ={
-                            },
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
+                ){
+                    Text(
+                        text = stringResource(id = R.string.questionusaurio),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.Black
+                    )
+                    ClickableText(
+                        text = newuser,
+                        onClick ={
+                            navController.navigate(Screen.SignIn.route){
+                            }
+                        },
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 }
 
             }
