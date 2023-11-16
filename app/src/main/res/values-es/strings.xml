@@ -23,4 +23,6 @@
     <string name="unit">Unidad</string>
     <string name="grams">Gramos</string>
     <string name="liters">Litros</string>
+    <string name="signin">Registrate</string>
+    <string name="questionusaurio">¿Nuevo Usuario?</string>
 </resources>

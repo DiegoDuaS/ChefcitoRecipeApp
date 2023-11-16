@@ -22,4 +22,6 @@
     <string name="unit">Unit</string>
     <string name="grams">Grams</string>
     <string name="liters">Liters</string>
+    <string name="signin">Sign In</string>
+    <string name="questionusaurio">New User?</string>
 </resources>
