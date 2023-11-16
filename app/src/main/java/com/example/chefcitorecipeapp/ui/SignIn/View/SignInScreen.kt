@@ -45,17 +45,21 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.navigation.Screen
+import com.example.chefcitorecipeapp.ui.PantallaInicio.Model.PantallaInicioViewModel
 import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
+import com.example.chefcitorecipeapp.ui.SignIn.Model.SingInViewModel
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SigninScreen(navController: NavController){
+fun SigninScreen(navController: NavController,
+                 viewModel: SingInViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+){
 
-    var user by remember { mutableStateOf(TextFieldValue("")) }
-    var password by remember { mutableStateOf(TextFieldValue("")) }
+    var user by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
 
     Surface(
@@ -152,10 +156,13 @@ fun SigninScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = {
-                                navController.navigate("Main"){
-                                    popUpTo("Authentication") {
-                                        inclusive = false
+                                viewModel.CreateUserWithEmailAndPassword(user,password){
+                                    navController.navigate("Main"){
+                                        popUpTo("Authentication") {
+                                            inclusive = false
+                                        }
                                     }
+
                                 }
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Fondo)

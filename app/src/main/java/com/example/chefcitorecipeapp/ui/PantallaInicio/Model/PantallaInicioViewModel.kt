@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class PantallaInicioViewModel: ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
-    private val _loading = MutableLiveData(false)
 
 
     fun signInWithEmailAndPassword(email: String, password: String, home: ()-> Unit)
@@ -21,16 +20,16 @@ class PantallaInicioViewModel: ViewModel() {
             auth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener { task->
                     if(task.isSuccessful){
-                        Log.d("MascotaFeliz","signinWithEmailAndPassword loguado!!!")
+                        Log.d("Succes","signinWithEmailAndPassword loguado!!!")
                         home()
                     }
                     else{
-                        Log.d("MascotaFeliz","signinWithEmailAndPassword:  ${task.result.toString()}")
+                        Log.d("Fail","signinWithEmailAndPassword:  ${task.result.toString()}")
                     }
                 }
         }
         catch (ex: Exception){
-            Log.d("MascotaFeliz","signinWithEmailAndPassword: ${ex.message}")
+            Log.d("Fail","signinWithEmailAndPassword: ${ex.message}")
 
 
         }
