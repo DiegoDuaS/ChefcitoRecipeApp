@@ -26,4 +26,5 @@
     <string name="signin">Registrate</string>
     <string name="questionusaurio">¿Nuevo Usuario?</string>
     <string name="mensajestart">Empieza tu viaje de Chef</string>
+    <string name="savechanges">Guardar Cambios</string>
 </resources>

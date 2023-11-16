@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -21,12 +22,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -117,51 +121,34 @@ fun DespensaScreen(navController: NavController){
                     item{
                         Spacer(modifier = Modifier.height(40.dp))
                     }
-                    items(ingredientes){ ingrediente ->
-                        IngredienteCard(ingrediente)
+                    item{
+                        CheckBoxes(ingredientes = ingredientes)
                     }
                     item{
-                        Card(
+                        Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
-                                .background(color = Fondo)
-                                .height(80.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = ColorMain,
-                            ),
+                                .background(color = Fondo),
+                            horizontalAlignment = Alignment.CenterHorizontally
                         ){
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(
+                            Button(
+                                onClick = {
+
+                                },
+                                colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                            ){
+                                Text(
+                                    text = stringResource(id = R.string.savechanges),
+                                    style = MaterialTheme.typography.bodySmall,
                                     modifier = Modifier
-                                        .fillMaxWidth()
-                                        .background(color = ColorMain),
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.Center,
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        Text(
-                                            text = stringResource(id = R.string.new_ingredient),
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            modifier = Modifier
-                                                .padding(vertical = 0.dp)
-                                                .padding(horizontal = 4.dp),
-                                            textAlign = TextAlign.Center,
-                                            color = Color.White
-                                        )
-                                    }
-                                }
+                                        .padding(vertical = 0.dp)
+                                        .padding(horizontal = 4.dp),
+                                    textAlign = TextAlign.Center,
+                                    color = Color.White
+                                )
                             }
                         }
+
                     }
                 }
             }
@@ -169,123 +156,50 @@ fun DespensaScreen(navController: NavController){
     }
 }
 
-//Falta Funcionalidad para subir o bajar la canitdad de Ingedientes que tiene
-@SuppressLint("UnrememberedMutableState")
 @Composable
-fun IngredienteCard(ingrediente: IngredientesParaPreview){
-    Card(
+private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
+
+    val checkedIngredients = remember { mutableStateListOf<IngredientesParaPreview>() }
+
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .background(color = Fondo)
-            .height(80.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = ColorMain,
-        ),
-    ){
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ){
-            Row (
+            .background(color = Fondo),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ingredientes.forEach { ingrediente ->
+            Card(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                Text(
-                    text = "${ingrediente.name}",
-                    style = MaterialTheme.typography.bodyMedium,
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .background(color = Fondo)
+                    .height(80.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = ColorMain,
+                ),
+            ) {
+                Box(
                     modifier = Modifier
-                        .padding(vertical = 0.dp)
-                        .padding(horizontal = 4.dp),
-                    textAlign = TextAlign.Center,
-                    color = Color.White
-                )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
                     Row(
-                        horizontalArrangement = Arrangement.SpaceEvenly,
-                        verticalAlignment = Alignment.CenterVertically
-                    ){
-                        Button(
-                            onClick = { (ingrediente.cantidad - 1) },
-                            shape = CircleShape,
-                            modifier = Modifier
-                                .size(25.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-                        ) {
-                            Text("-")
-                        }
-                        if(ingrediente.cantidad < 10) {
-                            Text(
-                                text = " \t 0${ingrediente.cantidad} \t",
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier
-                                    .padding(vertical = 0.dp)
-                                    .padding(horizontal = 4.dp),
-                                textAlign = TextAlign.Center,
-                                color = Color.White
-                            )
-                        }
-                        else{
-                            Text(
-                                text = " \t ${ingrediente.cantidad} \t",
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier
-                                    .padding(vertical = 0.dp)
-                                    .padding(horizontal = 4.dp),
-                                textAlign = TextAlign.Center,
-                                color = Color.White
-                            )
-                        }
-                        Button(
-                            onClick = { (ingrediente.cantidad + 1) },
-                            shape = CircleShape,
-                            modifier = Modifier
-                                .size(25.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-                        ) {
-                            Text(
-                                text = "+",
-                                style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier
-                                    .padding(vertical = 0.dp)
-                                    .padding(horizontal = 4.dp),
-                                textAlign = TextAlign.Center,
-                                color = Color.Black
-                            )
-                        }
-                    }
-                    if(ingrediente.tipo.equals("Unidad")){
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Checkbox(checked = checkedIngredients.contains(ingrediente),
+                            onCheckedChange = { isChecked ->
+                                if (isChecked) {
+                                    checkedIngredients.add(ingrediente)
+                                } else {
+                                    checkedIngredients.remove(ingrediente)
+                                }
+                            })
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = stringResource(id = R.string.unit),
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = Color.White
-                        )
-                    }
-                    else if(ingrediente.tipo.equals("Litro")){
-                        Text(
-                            text = stringResource(id = R.string.liters),
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = Color.White
-                        )
-                    }
-                    else if(ingrediente.tipo.equals("Gramos")){
-                        Text(
-                            text = stringResource(id = R.string.grams),
-                            style = MaterialTheme.typography.bodySmall,
+                            text = ingrediente.name,
+                            style = MaterialTheme.typography.bodyMedium,
                             modifier = Modifier
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),
@@ -294,6 +208,7 @@ fun IngredienteCard(ingrediente: IngredientesParaPreview){
                         )
                     }
                 }
+
             }
         }
     }

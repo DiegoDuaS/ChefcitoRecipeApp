@@ -387,7 +387,12 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
 
     val checkedIngredients = remember { mutableStateListOf<IngredientesParaPreview>() }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = ColorMain),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         ingredientes.forEach { ingrediente ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -395,7 +400,8 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+
                 ) {
                     Checkbox(checked = checkedIngredients.contains(ingrediente),
                         onCheckedChange = { isChecked ->
