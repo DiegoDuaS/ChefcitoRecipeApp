@@ -1,6 +1,6 @@
 package com.example.chefcitorecipeapp.ui.PantallaInicio.View
 
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -49,6 +48,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.navigation.Screen
+import com.example.chefcitorecipeapp.ui.FirebaseData.MySingleton
 import com.example.chefcitorecipeapp.ui.PantallaInicio.Model.PantallaInicioViewModel
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
@@ -167,22 +167,31 @@ fun InicioScreen(navController: NavController,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
+                val context = LocalContext.current
 
                 Button(
                     onClick = {
-
-
-                        viewModel.signInWithEmailAndPassword(user,password){
-                            navController.navigate("Main"){
-                                popUpTo("Authentication") {
-                                    inclusive = false
+                        viewModel.signInWithEmailAndPassword(user, password) { success ->
+                            if (success) {
+                                Toast.makeText(context, "Entrando a la aplicacion", Toast.LENGTH_SHORT).show()
+                                viewModel.EncontrarIdDelDocumento(MySingleton.userID) { documentId ->
+                                    if (documentId.isNotEmpty()) {
+                                        viewModel.ObtenerParametrosDelDocumento(MySingleton.documentID)
+                                        navController.navigate("Main") {
+                                            popUpTo("Authentication") { inclusive = false }
+                                        }
+                                    }
                                 }
+
+                            } else {
+                                Toast.makeText(context, "Datos de inicio de sesión incorrectos", Toast.LENGTH_SHORT).show()
                             }
                         }
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                )
 
-                ) {
+                {
                     Text(
                         text = stringResource(id = R.string.enter),
                         style = MaterialTheme.typography.bodySmall,

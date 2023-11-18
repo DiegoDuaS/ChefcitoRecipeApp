@@ -1,7 +1,8 @@
 package com.example.chefcitorecipeapp.ui.FirebaseData
 object MySingleton {
-    var userID = ""
-    var documentID = ""
+    var userID: String? = ""
+    var documentID: String = ""
+    var DisplayName: String = ""
     var Pollo = false
     var Carne_Molida = false
     var Pasta = false

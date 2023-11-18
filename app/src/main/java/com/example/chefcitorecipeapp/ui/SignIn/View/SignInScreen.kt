@@ -1,5 +1,6 @@
 package com.example.chefcitorecipeapp.ui.SignIn.View
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -33,6 +34,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -154,9 +156,12 @@ fun SigninScreen(navController: NavController,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
+                        val context = LocalContext.current
+
                         Button(
                             onClick = {
                                 viewModel.CreateUserWithEmailAndPassword(user,password){
+                                    Toast.makeText(context, "Se ha registrado el usuario exitosamente", Toast.LENGTH_LONG).show()
                                     navController.navigate(Screen.Login.route)
 
                                 }
