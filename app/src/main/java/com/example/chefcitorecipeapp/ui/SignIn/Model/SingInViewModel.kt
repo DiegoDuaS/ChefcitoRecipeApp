@@ -46,6 +46,21 @@ class SingInViewModel: ViewModel() {
 
         user["user_id"] = userid.toString()
         user["display_name"] = displayName.toString()
+        user["Document_ID"] = ""
+        user["Pollo"] = false
+        user["Carne_Molida"] = false
+        user["Pasta"] = false
+        user["Arroz"] = false
+        user["Harina"] = false
+        user["Papa"] = false
+        user["Cebolla"] = false
+        user["Tomate"] = false
+        user["Ajo"] = false
+        user["Sal"] = false
+        user["Pimienta"] = false
+        user["Huevos"] = false
+        user["Leche"] = false
+
         FirebaseFirestore.getInstance().collection("users")
             .add(user)
             .addOnSuccessListener {

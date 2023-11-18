@@ -13,7 +13,7 @@
     <string name="agregar_imagen">"Agregar Imagen + "</string>
     <string name="agregar_receta">Agregar Receta</string>
     <string name="app_recetario">App Recetario</string>
-    <string name="user">Usuario</string>
+    <string name="user">Correo Electrónico</string>
     <string name="contrasena">Contraseña</string>
     <string name="enter">Entrar</string>
     <string name="by_chef">"por: "</string>

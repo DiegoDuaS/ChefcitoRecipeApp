@@ -157,11 +157,7 @@ fun SigninScreen(navController: NavController,
                         Button(
                             onClick = {
                                 viewModel.CreateUserWithEmailAndPassword(user,password){
-                                    navController.navigate("Main"){
-                                        popUpTo("Authentication") {
-                                            inclusive = false
-                                        }
-                                    }
+                                    navController.navigate(Screen.Login.route)
 
                                 }
                             },

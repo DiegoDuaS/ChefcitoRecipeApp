@@ -1,0 +1,18 @@
+package com.example.chefcitorecipeapp.ui.FirebaseData
+object MySingleton {
+    var userID = ""
+    var documentID = ""
+    var Pollo = false
+    var Carne_Molida = false
+    var Pasta = false
+    var Arroz = false
+    var Harina = false
+    var Papa = false
+    var Cebolla = false
+    var Tomate = false
+    var Ajo = false
+    var Sal = false
+    var Pimienta = false
+    var Huevos = false
+    var Leche = false
+}
