@@ -27,4 +27,10 @@
     <string name="questionusaurio">¿Nuevo Usuario?</string>
     <string name="mensajestart">Empieza tu viaje de Chef</string>
     <string name="savechanges">Guardar Cambios</string>
+    <string name="notenughstep">No tienes paso que agregar.</string>
+    <string name="notenoughpara">Llena los parámetros faltantes.</string>
+    <string name="datasavedsucc">Los datos se guardaron correctamente.</string>
+    <string name="usercreatedsuc">El usuario se ha creado correctamente.</string>
+    <string name="autenticando">Autenticando…</string>
+    <string name="incorrectsignin">Correo elctrónico o contraseña incorrecta.</string>
 </resources>

@@ -62,7 +62,7 @@ fun SigninScreen(navController: NavController,
 
     var user by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-
+    val context = LocalContext.current
 
     Surface(
         modifier = Modifier
@@ -156,12 +156,12 @@ fun SigninScreen(navController: NavController,
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                         )
                         Spacer(modifier = Modifier.height(16.dp))
-                        val context = LocalContext.current
+
 
                         Button(
                             onClick = {
                                 viewModel.CreateUserWithEmailAndPassword(user,password){
-                                    Toast.makeText(context, "Se ha registrado el usuario exitosamente", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(context, R.string.usercreatedsuc, Toast.LENGTH_LONG).show()
                                     navController.navigate(Screen.Login.route)
 
                                 }

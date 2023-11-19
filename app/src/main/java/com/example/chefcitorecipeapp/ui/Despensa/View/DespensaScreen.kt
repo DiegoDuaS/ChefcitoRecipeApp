@@ -153,7 +153,7 @@ fun DespensaScreen(navController: NavController,
                             val context = LocalContext.current
                             Button(
                                 onClick = {
-                                    Toast.makeText(context, "Se ha guardados los datos exitosamente", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(context, R.string.datasavedsucc, Toast.LENGTH_SHORT).show()
                                     viewModel.updateFirestoreDocument()
                                 },
                                 colors = ButtonDefaults.buttonColors(containerColor = ColorMain)

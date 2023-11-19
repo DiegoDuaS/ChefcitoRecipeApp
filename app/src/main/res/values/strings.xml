@@ -26,4 +26,10 @@
     <string name="questionusaurio">New User?</string>
     <string name="mensajestart">Start your chef journey</string>
     <string name="savechanges">Save Changes</string>
+    <string name="notenughstep">You have no step to add.</string>
+    <string name="notenoughpara">Fill the missing parameters.</string>
+    <string name="datasavedsucc">Data saved successfully</string>
+    <string name="usercreatedsuc">User created successfully</string>
+    <string name="autenticando">Authenticating…</string>
+    <string name="incorrectsignin">Incorrect email address or password.</string>
 </resources>

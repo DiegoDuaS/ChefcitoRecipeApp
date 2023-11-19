@@ -60,6 +60,7 @@ fun InicioScreen(navController: NavController,
                  viewModel: PantallaInicioViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ){
 
+    val context = LocalContext.current
     var user by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val newuser = buildAnnotatedString {
@@ -167,13 +168,13 @@ fun InicioScreen(navController: NavController,
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
-                val context = LocalContext.current
+
 
                 Button(
                     onClick = {
                         viewModel.signInWithEmailAndPassword(user, password) { success ->
                             if (success) {
-                                Toast.makeText(context, "Entrando a la aplicacion", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.autenticando, Toast.LENGTH_SHORT).show()
                                 viewModel.EncontrarIdDelDocumento(MySingleton.userID) { documentId ->
                                     if (documentId.isNotEmpty()) {
                                         viewModel.ObtenerParametrosDelDocumento(MySingleton.documentID)
@@ -184,7 +185,7 @@ fun InicioScreen(navController: NavController,
                                 }
 
                             } else {
-                                Toast.makeText(context, "Datos de inicio de sesión incorrectos", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, R.string.incorrectsignin, Toast.LENGTH_SHORT).show()
                             }
                         }
                     },
