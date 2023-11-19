@@ -1,6 +1,7 @@
 package com.example.chefcitorecipeapp.ui.Despensa.View
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,9 +43,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
+import com.example.chefcitorecipeapp.ui.Despensa.Model.DespensaVIewModel
+import com.example.chefcitorecipeapp.ui.FirebaseData.MySingleton
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
+
 
 data class IngredientesParaPreview(
     val name:String,
@@ -52,15 +59,27 @@ data class IngredientesParaPreview(
 )
 
 @Composable
-fun DespensaScreen(navController: NavController){
+fun DespensaScreen(navController: NavController,
+                   viewModel: DespensaVIewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+){
+
+
+
 
     //Lista provicional
     val ingredientes = listOf(
-        IngredientesParaPreview("Ingrediente 1", 3, "Unidad"),
-        IngredientesParaPreview("Ingrediente 2", 10, "Gramos"),
-        IngredientesParaPreview("Ingrediente 3", 7, "Litro"),
-        IngredientesParaPreview("Ingrediente 4", 12, "Unidad"),
-        IngredientesParaPreview("Ingrediente 5", 1, "Gramos"),
+        IngredientesParaPreview("Pollo", 3, "Unidad"),
+        IngredientesParaPreview("Carne Molida", 10, "Gramos"),
+        IngredientesParaPreview("Pasta", 7, "Litro"),
+        IngredientesParaPreview("Arroz", 12, "Unidad"),
+        IngredientesParaPreview("Harina", 1, "Gramos"),
+        IngredientesParaPreview("Papa", 1, "Gramos"),
+        IngredientesParaPreview("Cebolla", 3, "Unidad"),
+        IngredientesParaPreview("Ajo", 3, "Unidad"),
+        IngredientesParaPreview("Sal", 3, "Unidad"),
+        IngredientesParaPreview("Pimienta", 3, "Unidad"),
+        IngredientesParaPreview("Huevos", 3, "Unidad"),
+        IngredientesParaPreview("Leche", 3, "Unidad"),
     )
 
     Surface(
@@ -122,7 +141,7 @@ fun DespensaScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(40.dp))
                     }
                     item{
-                        CheckBoxes(ingredientes = ingredientes)
+                        CheckBoxes(ingredientes = ingredientes, viewModel = viewModel)
                     }
                     item{
                         Column(
@@ -131,9 +150,11 @@ fun DespensaScreen(navController: NavController){
                                 .background(color = Fondo),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
+                            val context = LocalContext.current
                             Button(
                                 onClick = {
-
+                                    Toast.makeText(context, "Se ha guardados los datos exitosamente", Toast.LENGTH_SHORT).show()
+                                    viewModel.updateFirestoreDocument()
                                 },
                                 colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
                             ){
@@ -157,9 +178,10 @@ fun DespensaScreen(navController: NavController){
 }
 
 @Composable
-private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
+private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,viewModel: DespensaVIewModel){
 
     val checkedIngredients = remember { mutableStateListOf<IngredientesParaPreview>() }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -168,6 +190,22 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ingredientes.forEach { ingrediente ->
+            val IsChecked = when(ingrediente.name) {
+                "Pollo" -> viewModel.polloState.observeAsState(MySingleton.Pollo).value ?: false
+                "Carne Molida" -> viewModel.MolidaState.observeAsState(MySingleton.Carne_Molida).value ?: false
+                "Pasta" -> viewModel.PastaState.observeAsState(MySingleton.Pasta).value ?: false
+                "Arroz" -> viewModel.ArrozState.observeAsState(MySingleton.Arroz).value ?: false
+                "Harina" -> viewModel.HarinaState.observeAsState(MySingleton.Harina).value ?: false
+                "Papa" -> viewModel.PapaState.observeAsState(MySingleton.Papa).value ?: false
+                "Cebolla" -> viewModel.CebollaState.observeAsState(MySingleton.Cebolla).value ?: false
+                "Ajo" -> viewModel.AjoState.observeAsState(MySingleton.Ajo).value ?: false
+                "Sal" -> viewModel.SalState.observeAsState(MySingleton.Sal).value ?: false
+                "Pimienta" -> viewModel.PimientaState.observeAsState(MySingleton.Pimienta).value ?: false
+                "Huevos" -> viewModel.HuevosState.observeAsState(MySingleton.Huevos).value ?: false
+                "Leche" -> viewModel.LecheState.observeAsState(MySingleton.Leche).value ?: false
+                else -> false
+            }
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -188,14 +226,25 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Checkbox(checked = checkedIngredients.contains(ingrediente),
-                            onCheckedChange = { isChecked ->
-                                if (isChecked) {
-                                    checkedIngredients.add(ingrediente)
-                                } else {
-                                    checkedIngredients.remove(ingrediente)
+                        Checkbox(
+                            checked = IsChecked,
+                            onCheckedChange = { checked ->
+                                when (ingrediente.name) {
+                                    "Pollo" -> viewModel.updatePollo(checked)
+                                    "Carne Molida" -> viewModel.updateCarneMolida(checked)
+                                    "Pasta" -> viewModel.updatePasta(checked)
+                                    "Arroz" -> viewModel.updateArroz(checked)
+                                    "Harina" -> viewModel.updateHarina(checked)
+                                    "Papa" -> viewModel.updatePapa(checked)
+                                    "Cebolla" -> viewModel.updateCebolla(checked)
+                                    "Ajo" -> viewModel.updateAjo(checked)
+                                    "Sal" -> viewModel.updateSal(checked)
+                                    "Pimienta" -> viewModel.updatePimienta(checked)
+                                    "Huevos" -> viewModel.updateHuevos(checked)
+                                    "Leche" -> viewModel.updateLeche(checked)
                                 }
-                            })
+                            }
+                        )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = ingrediente.name,
