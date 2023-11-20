@@ -1,5 +1,6 @@
 package com.example.chefcitorecipeapp.ui.NuevaReceta.View
 
+import android.widget.Toast
 import android.annotation.SuppressLint
 import android.widget.CheckBox
 import androidx.compose.foundation.Image
@@ -33,6 +34,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
@@ -42,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -49,38 +52,49 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
-import com.example.chefcitorecipeapp.navigation.Screen
-import com.example.chefcitorecipeapp.ui.Despensa.View.DespensaScreen
-import com.example.chefcitorecipeapp.ui.Despensa.View.IngredientesParaPreview
+import com.example.chefcitorecipeapp.ui.NuevaReceta.Model.NuevaRecetaViewModel
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
-
-data class IngredientesParaPreview(
-    val name:String,
-    val cantidad: Int,
-    val tipo: String
-)
+import java.util.UUID
 
 @SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewRecipeScreen(navController: NavController){
+fun NewRecipeScreen(navController: NavController,
+                    viewModel: NuevaRecetaViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+
+){
 
     var name by remember { mutableStateOf(TextFieldValue("")) }
     var time by remember { mutableStateOf(TextFieldValue("")) }
     var pasonuevo by remember { mutableStateOf(TextFieldValue("")) }
+    var showDialog by remember { mutableStateOf(false) }
+    var imageUrl by remember { mutableStateOf("") }
+
+
+
     var pasos = mutableStateListOf<String>()
+    val context = LocalContext.current
+    val context_two = LocalContext.current
 
     val ingredientes = listOf(
-        IngredientesParaPreview("Ingrediente 1", 3, "Unidad"),
-        IngredientesParaPreview("Ingrediente 2", 10, "Gramos"),
-        IngredientesParaPreview("Ingrediente 3", 7, "Litro"),
-        IngredientesParaPreview("Ingrediente 4", 12, "Unidad"),
-        IngredientesParaPreview("Ingrediente 5", 1, "Gramos"),
+        IngredientesParaPreview("Pollo", 3, "Unidad"),
+        IngredientesParaPreview("Carne_Molida", 10, "Gramos"),
+        IngredientesParaPreview("Pasta", 7, "Litro"),
+        IngredientesParaPreview("Arroz", 12, "Unidad"),
+        IngredientesParaPreview("Harina", 1, "Gramos"),
+        IngredientesParaPreview("Papa", 1, "Gramos"),
+        IngredientesParaPreview("Cebolla", 3, "Unidad"),
+        IngredientesParaPreview("Ajo", 3, "Unidad"),
+        IngredientesParaPreview("Sal", 3, "Unidad"),
+        IngredientesParaPreview("Pimienta", 3, "Unidad"),
+        IngredientesParaPreview("Huevos", 3, "Unidad"),
+        IngredientesParaPreview("Leche", 3, "Unidad"),
     )
 
     Surface(
@@ -213,7 +227,10 @@ fun NewRecipeScreen(navController: NavController){
                                                 color = Color.White
                                             )
                                         }
-                                        CheckBoxes(ingredientes = ingredientes)
+                                        CheckBoxes(ingredientes = ingredientes){updatedList ->
+                                            viewModel.saveIngredientsState(updatedList)
+
+                                        }
                                     }
                                 }
                                 Card(
@@ -298,10 +315,10 @@ fun NewRecipeScreen(navController: NavController){
                                 )
                                 Button(
                                     onClick = {
-                                        if(pasonuevo == null){
-
+                                        if(pasonuevo == null || pasonuevo == TextFieldValue("")){
+                                            Toast.makeText(context,R.string.notenughstep, Toast.LENGTH_LONG).show()
                                         }
-                                        else{
+                                        else if(pasonuevo != null && pasonuevo != TextFieldValue("")){
                                             pasos.add(pasonuevo.text)
                                             pasonuevo = TextFieldValue("")
                                         }
@@ -324,13 +341,36 @@ fun NewRecipeScreen(navController: NavController){
                                         .background(color = Fondo)
                                         .width(300.dp)
                                         .height(300.dp)
-                                        .clickable {
-                                            //Agregar Imagen
-                                        },
+                                        .clickable {showDialog = true},
                                     colors = CardDefaults.cardColors(
                                         containerColor = Color.LightGray,
                                     ),
                                 ) {
+                                    if (showDialog) {
+                                        Dialog(onDismissRequest = { showDialog = false }) {
+                                            Surface {
+                                                Column(modifier = Modifier.padding(16.dp)) {
+                                                    Text(text = "Enter Image URL")
+                                                    TextField(
+                                                        value = imageUrl,
+                                                        onValueChange = { imageUrl = it },
+                                                        label = { Text("URL") },
+                                                        singleLine = true, // Ensures the text field is single-line
+                                                        modifier = Modifier
+                                                            .fillMaxWidth() // Makes sure the TextField fills the width of its container
+                                                            .padding(4.dp) // Adds padding inside the TextField
+                                                    )
+                                                    Button(onClick = {
+                                                        // Here, you can handle the image URL, e.g., download the image or assign it to a variable
+                                                        showDialog = false
+                                                    }) {
+                                                        Text("Submit")
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
                                     Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -352,8 +392,35 @@ fun NewRecipeScreen(navController: NavController){
                                 }
                                 Button(
                                     onClick = {
-                                        navController.navigateUp()
+                                        // First, check if the image URL is empty
+                                        if (imageUrl.isEmpty()) {
+                                            Toast.makeText(context, "Image URL must not be empty.", Toast.LENGTH_LONG).show()
+                                        }
+                                        // Then check if the name, time, or steps are empty
+                                        else if (pasos.isEmpty() || name.text.isEmpty() || time.text.isEmpty()) {
+                                            Toast.makeText(context_two, R.string.notenoughpara, Toast.LENGTH_LONG).show()
+                                        }
+                                        // If all fields are correctly filled
+                                        else {
+                                            // Here you would call the ViewModel's function to add the recipe to Firestore
+                                            // Assuming you have a function `postRecipe` in your ViewModel that takes care of this
+                                            viewModel.addRecipeToFirestore(
+                                                name = name,
+                                                postId = TextFieldValue(UUID.randomUUID().toString()), // Create or retrieve the post ID
+                                                preparationTime = time,
+                                                ingredients = ingredientes,
+                                                checkedIngredients = viewModel.ingredientsState,
+                                                pasos = pasos,
+                                                imageUrl = imageUrl
+                                            )
+
+                                            // Navigate back up after successful operation
+                                            navController.navigateUp()
+                                        }
                                     },
+
+
+
                                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
 
                                 ) {
@@ -382,12 +449,30 @@ data class ToggableInfo(
     val text: String
 )
 
+
+
+
+
+data class IngredientesParaPreview(
+    val name:String,
+    val cantidad: Int,
+    val tipo: String
+)
+
 @Composable
-private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
+private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,
+                       onCheckedChange: (List<IngredientesParaPreview>) -> Unit
+
+){
 
     val checkedIngredients = remember { mutableStateListOf<IngredientesParaPreview>() }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = ColorMain),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         ingredientes.forEach { ingrediente ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -395,15 +480,18 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+
                 ) {
-                    Checkbox(checked = checkedIngredients.contains(ingrediente),
+                    Checkbox(
+                        checked = checkedIngredients.contains(ingrediente),
                         onCheckedChange = { isChecked ->
                             if (isChecked) {
                                 checkedIngredients.add(ingrediente)
                             } else {
                                 checkedIngredients.remove(ingrediente)
                             }
+                            onCheckedChange(checkedIngredients) // Call the lambda function whenever the state changes
                         })
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(

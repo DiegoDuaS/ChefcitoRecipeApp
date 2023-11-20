@@ -1,6 +1,6 @@
 package com.example.chefcitorecipeapp.ui.PantallaInicio.View
 
-import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -49,6 +48,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.navigation.Screen
+import com.example.chefcitorecipeapp.ui.FirebaseData.MySingleton
 import com.example.chefcitorecipeapp.ui.PantallaInicio.Model.PantallaInicioViewModel
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
@@ -60,8 +60,9 @@ fun InicioScreen(navController: NavController,
                  viewModel: PantallaInicioViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ){
 
-    var user by remember { mutableStateOf(TextFieldValue("")) }
-    var password by remember { mutableStateOf(TextFieldValue("")) }
+    val context = LocalContext.current
+    var user by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     val newuser = buildAnnotatedString {
         val text = stringResource(id = R.string.signin)
         append(text)
@@ -168,31 +169,32 @@ fun InicioScreen(navController: NavController,
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+
                 Button(
                     onClick = {
-
-                        val usuarioS: String = user.toString()
-                        val ContraS: String = password.toString()
-
-                        println(usuarioS)
-                        println(ContraS)
-
-                        viewModel.signInWithEmailAndPassword("sol22102@uvg.edu.gt","patata2"){
-                            navController.navigate("Main"){
-                                popUpTo("Authentication") {
-                                    inclusive = false
+                        viewModel.signInWithEmailAndPassword(user, password) { success ->
+                            if (success) {
+                                Toast.makeText(context, R.string.autenticando, Toast.LENGTH_SHORT).show()
+                                viewModel.EncontrarIdDelDocumento(MySingleton.userID) { documentId ->
+                                    if (documentId.isNotEmpty()) {
+                                        viewModel.ObtenerParametrosDelDocumento(MySingleton.documentID)
+                                        if(MySingleton.userID != ""){
+                                            navController.navigate("Main") {
+                                                popUpTo("Authentication") { inclusive = false }
+                                            }
+                                        }
+                                    }
                                 }
+
+                            } else {
+                                Toast.makeText(context, R.string.incorrectsignin, Toast.LENGTH_SHORT).show()
                             }
                         }
-
-
-
-
-
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                )
 
-                ) {
+                {
                     Text(
                         text = stringResource(id = R.string.enter),
                         style = MaterialTheme.typography.bodySmall,
@@ -202,30 +204,32 @@ fun InicioScreen(navController: NavController,
                         textAlign = TextAlign.Center,
                         color = Color.White
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
 
-                    ){
-                        Text(
-                            text = stringResource(id = R.string.questionusaurio),
-                            style = MaterialTheme.typography.bodySmall,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = Color.Black
-                        )
-                        ClickableText(
-                            text = newuser,
-                            onClick ={
-                            },
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
+                ){
+                    Text(
+                        text = stringResource(id = R.string.questionusaurio),
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.Black
+                    )
+                    ClickableText(
+                        text = newuser,
+                        onClick ={
+                            navController.navigate(Screen.SignIn.route){
+                            }
+                        },
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 }
 
             }

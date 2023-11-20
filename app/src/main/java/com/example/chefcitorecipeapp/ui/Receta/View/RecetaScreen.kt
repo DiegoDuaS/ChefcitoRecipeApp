@@ -208,6 +208,7 @@ fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
                 color = Color.White
             )
             ingredients.forEachIndexed { index, ingredient ->
+                //ACA VA EL IF
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -216,15 +217,6 @@ fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
                 ){
                     Text(
                         text = "${ingredient.name}",
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier
-                            .padding(vertical = 0.dp)
-                            .padding(horizontal = 4.dp),
-                        textAlign = TextAlign.Center,
-                        color = Color.White
-                    )
-                    Text(
-                        text = "${ingredient.cantidad} ${ingredient.tipo}",
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
@@ -263,24 +255,23 @@ fun CardPasos(pasos: List<String>){
                 textAlign = TextAlign.Center,
                 color = Color.White
             )
-            pasos.forEachIndexed { index, paso ->
-                Row(
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.Start
+            ){
+                Text(
+                    text = "pasos", //Texto de pasos que pongas, hay que ponerle \n
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.Start
-                ){
-                    Text(
-                        text = "- $paso",
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier
-                            .padding(vertical = 0.dp)
-                            .padding(horizontal = 4.dp),
-                        textAlign = TextAlign.Center,
-                        color = Color.White
-                    )
-                }
+                        .padding(vertical = 0.dp)
+                        .padding(horizontal = 4.dp),
+                    textAlign = TextAlign.Center,
+                    color = Color.White
+                )
             }
+
         }
     }
 }
