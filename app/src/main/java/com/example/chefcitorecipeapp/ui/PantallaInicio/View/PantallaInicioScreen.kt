@@ -178,8 +178,10 @@ fun InicioScreen(navController: NavController,
                                 viewModel.EncontrarIdDelDocumento(MySingleton.userID) { documentId ->
                                     if (documentId.isNotEmpty()) {
                                         viewModel.ObtenerParametrosDelDocumento(MySingleton.documentID)
-                                        navController.navigate("Main") {
-                                            popUpTo("Authentication") { inclusive = false }
+                                        if(MySingleton.userID != ""){
+                                            navController.navigate("Main") {
+                                                popUpTo("Authentication") { inclusive = false }
+                                            }
                                         }
                                     }
                                 }

@@ -35,7 +35,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -50,6 +52,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
@@ -59,7 +62,8 @@ import com.example.chefcitorecipeapp.ui.theme.Fondo
 import com.example.chefcitorecipeapp.ui.theme.Tarjeta
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.navigation.Screen
-
+import com.example.chefcitorecipeapp.ui.PantallaPrincipal.Model.PantallaPrincipalScreenViewModel
+import com.example.chefcitorecipeapp.ui.SignIn.Model.SingInViewModel
 
 
 data class BottomNavigationItem(
@@ -71,24 +75,25 @@ data class BottomNavigationItem(
 
 //Clase provicional para preview
 data class RecetasParaPreview(
-    val name:String,
-    val cocinero: String,
-    val tiempo:String
+    val Nombre_Receta:String,
+    val Post_id: String,
+    val Preparation_Time: String
 )
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController,
+               viewModel: PantallaPrincipalScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 
-    //Lista provicional
-    val recetas = listOf(
-        RecetasParaPreview("Receta 1", "Chef 1", "30"),
-        RecetasParaPreview("Receta 2", "Chef 2", "45"),
-        RecetasParaPreview("Receta 3", "Chef 3", "20"),
-        RecetasParaPreview("Receta 4", "Chef 4", "15"),
-        RecetasParaPreview("Receta 5", "Chef 5", "120"),
-    )
+) {
+    val currentBackStackEntry = navController.currentBackStackEntryAsState()
+    LaunchedEffect(currentBackStackEntry.value) {
+        viewModel.fetchMatchingPosts()
+    }
+
+    val posts by viewModel.postsLiveData.observeAsState(initial = emptyList())
+
 
     val items = listOf(
         BottomNavigationItem(
@@ -186,12 +191,34 @@ fun MainScreen(navController: NavController) {
                             )
                         }
                     }
-                    LazyColumn {
-                        items(recetas){ receta ->
-                            RecetaCard(receta = receta, navController)
+
+                    if (posts.isNotEmpty()) {
+                        LazyColumn {
+                            items(posts) { post ->
+                                // Assuming post has all the required fields
+                                RecetaCard(
+                                    receta = RecetasParaPreview(
+                                        Nombre_Receta = post.Nombre_Receta ?: "",
+                                        Post_id = post.Post_id ?: "",
+                                        Preparation_Time = post.Preparation_Time ?: ""
+                                    ),
+                                    navController = navController
+                                )
+                            }
+                            item { Spacer(modifier = Modifier.height(60.dp)) }
                         }
-                        item{
-                            Spacer(modifier = Modifier.height(60.dp))
+                    } else {
+                        // Display the message when there are no matching posts
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "No hay recetas",
+                                style = MaterialTheme.typography.bodyLarge,
+                                textAlign = TextAlign.Center,
+                                color = ColorMain
+                            )
                         }
                     }
 
@@ -246,7 +273,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
-                    text = "${receta.name}",
+                    text = "${receta.Nombre_Receta}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -254,7 +281,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     color = Color.White
                 )
                 Text(
-                    text = stringResource(id = R.string.by_chef) + "${receta.cocinero}",
+                    text = stringResource(id = R.string.by_chef) + "${receta.Post_id}",
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -262,7 +289,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     textAlign = TextAlign.End,
                 )
                 Text(
-                    text = "${receta.tiempo} " + stringResource(id = R.string.minutos),
+                    text = "${receta.Preparation_Time} " + stringResource(id = R.string.minutos),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
