@@ -12,7 +12,7 @@
     <string name="agregar_imagen">"Add Image + "</string>
     <string name="agregar_receta">Add Recipe</string>
     <string name="app_recetario">Recipe App</string>
-    <string name="user">User</string>
+    <string name="user">Email Address</string>
     <string name="contrasena">Password</string>
     <string name="enter">Enter</string>
     <string name="by_chef">"by: "</string>
@@ -24,4 +24,12 @@
     <string name="liters">Liters</string>
     <string name="signin">Sign In</string>
     <string name="questionusaurio">New User?</string>
+    <string name="mensajestart">Start your chef journey</string>
+    <string name="savechanges">Save Changes</string>
+    <string name="notenughstep">You have no step to add.</string>
+    <string name="notenoughpara">Fill the missing parameters.</string>
+    <string name="datasavedsucc">Data saved successfully</string>
+    <string name="usercreatedsuc">User created successfully</string>
+    <string name="autenticando">Authenticating…</string>
+    <string name="incorrectsignin">Incorrect email address or password.</string>
 </resources>

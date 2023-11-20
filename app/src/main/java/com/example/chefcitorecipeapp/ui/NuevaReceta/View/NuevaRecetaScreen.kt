@@ -1,5 +1,6 @@
 package com.example.chefcitorecipeapp.ui.NuevaReceta.View
 
+import android.widget.Toast
 import android.annotation.SuppressLint
 import android.widget.CheckBox
 import androidx.compose.foundation.Image
@@ -42,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -74,6 +76,8 @@ fun NewRecipeScreen(navController: NavController){
     var time by remember { mutableStateOf(TextFieldValue("")) }
     var pasonuevo by remember { mutableStateOf(TextFieldValue("")) }
     var pasos = mutableStateListOf<String>()
+    val context = LocalContext.current
+    val context_two = LocalContext.current
 
     val ingredientes = listOf(
         IngredientesParaPreview("Ingrediente 1", 3, "Unidad"),
@@ -298,10 +302,10 @@ fun NewRecipeScreen(navController: NavController){
                                 )
                                 Button(
                                     onClick = {
-                                        if(pasonuevo == null){
-
+                                        if(pasonuevo == null || pasonuevo == TextFieldValue("")){
+                                            Toast.makeText(context,R.string.notenughstep, Toast.LENGTH_LONG).show()
                                         }
-                                        else{
+                                        else if(pasonuevo != null && pasonuevo != TextFieldValue("")){
                                             pasos.add(pasonuevo.text)
                                             pasonuevo = TextFieldValue("")
                                         }
@@ -352,7 +356,12 @@ fun NewRecipeScreen(navController: NavController){
                                 }
                                 Button(
                                     onClick = {
-                                        navController.navigateUp()
+                                        if(pasos.size == 0 || name == TextFieldValue("") || time == TextFieldValue("")){ //AGREGAR CONDICIONAL DE QUE HAYA UNA IMAGEN
+                                            Toast.makeText(context_two,R.string.notenoughpara, Toast.LENGTH_LONG).show()
+                                        }
+                                        else if (pasos.size != 0 && name != TextFieldValue("") && time != TextFieldValue("")){
+                                            navController.navigateUp()
+                                        }
                                     },
                                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
 
@@ -387,7 +396,12 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
 
     val checkedIngredients = remember { mutableStateListOf<IngredientesParaPreview>() }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = ColorMain),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         ingredientes.forEach { ingrediente ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -395,7 +409,8 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>){
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+
                 ) {
                     Checkbox(checked = checkedIngredients.contains(ingrediente),
                         onCheckedChange = { isChecked ->

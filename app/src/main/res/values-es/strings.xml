@@ -13,7 +13,7 @@
     <string name="agregar_imagen">"Agregar Imagen + "</string>
     <string name="agregar_receta">Agregar Receta</string>
     <string name="app_recetario">App Recetario</string>
-    <string name="user">Usuario</string>
+    <string name="user">Correo Electrónico</string>
     <string name="contrasena">Contraseña</string>
     <string name="enter">Entrar</string>
     <string name="by_chef">"por: "</string>
@@ -25,4 +25,12 @@
     <string name="liters">Litros</string>
     <string name="signin">Registrate</string>
     <string name="questionusaurio">¿Nuevo Usuario?</string>
+    <string name="mensajestart">Empieza tu viaje de Chef</string>
+    <string name="savechanges">Guardar Cambios</string>
+    <string name="notenughstep">No tienes paso que agregar.</string>
+    <string name="notenoughpara">Llena los parámetros faltantes.</string>
+    <string name="datasavedsucc">Los datos se guardaron correctamente.</string>
+    <string name="usercreatedsuc">El usuario se ha creado correctamente.</string>
+    <string name="autenticando">Autenticando…</string>
+    <string name="incorrectsignin">Correo elctrónico o contraseña incorrecta.</string>
 </resources>
