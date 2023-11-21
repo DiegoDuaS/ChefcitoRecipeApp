@@ -346,6 +346,8 @@ fun NewRecipeScreen(navController: NavController,
                                         containerColor = Color.LightGray,
                                     ),
                                 ) {
+
+                                    //Aqui esta el codigo feo
                                     if (showDialog) {
                                         Dialog(onDismissRequest = { showDialog = false }) {
                                             Surface {
@@ -355,13 +357,12 @@ fun NewRecipeScreen(navController: NavController,
                                                         value = imageUrl,
                                                         onValueChange = { imageUrl = it },
                                                         label = { Text("URL") },
-                                                        singleLine = true, // Ensures the text field is single-line
+                                                        singleLine = true,
                                                         modifier = Modifier
-                                                            .fillMaxWidth() // Makes sure the TextField fills the width of its container
-                                                            .padding(4.dp) // Adds padding inside the TextField
+                                                            .fillMaxWidth()
+                                                            .padding(4.dp)
                                                     )
                                                     Button(onClick = {
-                                                        // Here, you can handle the image URL, e.g., download the image or assign it to a variable
                                                         showDialog = false
                                                     }) {
                                                         Text("Submit")
@@ -392,33 +393,23 @@ fun NewRecipeScreen(navController: NavController,
                                 }
                                 Button(
                                     onClick = {
-                                        // First, check if the image URL is empty
                                         if (imageUrl.isEmpty()) {
                                             Toast.makeText(context, "Image URL must not be empty.", Toast.LENGTH_LONG).show()
-                                        }
-                                        // Then check if the name, time, or steps are empty
-                                        else if (pasos.isEmpty() || name.text.isEmpty() || time.text.isEmpty()) {
+                                        } else if (pasos.isEmpty() || name.text.isEmpty() || time.text.isEmpty()) {
                                             Toast.makeText(context_two, R.string.notenoughpara, Toast.LENGTH_LONG).show()
-                                        }
-                                        // If all fields are correctly filled
-                                        else {
-                                            // Here you would call the ViewModel's function to add the recipe to Firestore
-                                            // Assuming you have a function `postRecipe` in your ViewModel that takes care of this
+                                        } else {
+                                            val postId = TextFieldValue(UUID.randomUUID().toString())
                                             viewModel.addRecipeToFirestore(
                                                 name = name,
-                                                postId = TextFieldValue(UUID.randomUUID().toString()), // Create or retrieve the post ID
+                                                postId = postId,
                                                 preparationTime = time,
-                                                ingredients = ingredientes,
                                                 checkedIngredients = viewModel.ingredientsState,
                                                 pasos = pasos,
                                                 imageUrl = imageUrl
                                             )
-
-                                            // Navigate back up after successful operation
                                             navController.navigateUp()
                                         }
                                     },
-
 
 
                                     colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
@@ -491,7 +482,7 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,
                             } else {
                                 checkedIngredients.remove(ingrediente)
                             }
-                            onCheckedChange(checkedIngredients) // Call the lambda function whenever the state changes
+                            onCheckedChange(checkedIngredients)
                         })
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(

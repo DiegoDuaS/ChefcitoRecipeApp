@@ -71,7 +71,6 @@ class PantallaInicioViewModel: ViewModel() {
 
         documentReference.get().addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot.exists()) {
-                documentSnapshot.getString("user_id")?.let { MySingleton.userID = it }
                 documentSnapshot.getBoolean("Pollo")?.let { MySingleton.Pollo = it }
                 documentSnapshot.getBoolean("Carne_Molida")?.let { MySingleton.Carne_Molida = it }
                 documentSnapshot.getBoolean("Pasta")?.let { MySingleton.Pasta = it }

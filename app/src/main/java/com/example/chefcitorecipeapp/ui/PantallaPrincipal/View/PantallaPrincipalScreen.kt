@@ -26,6 +26,7 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -52,7 +53,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
@@ -63,7 +63,6 @@ import com.example.chefcitorecipeapp.ui.theme.Tarjeta
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.navigation.Screen
 import com.example.chefcitorecipeapp.ui.PantallaPrincipal.Model.PantallaPrincipalScreenViewModel
-import com.example.chefcitorecipeapp.ui.SignIn.Model.SingInViewModel
 
 
 data class BottomNavigationItem(
@@ -75,25 +74,84 @@ data class BottomNavigationItem(
 
 //Clase provicional para preview
 data class RecetasParaPreview(
-    val Nombre_Receta:String,
-    val Post_id: String,
-    val Preparation_Time: String
+    val name:String,
+    val cocinero: String,
+    val tiempo:String,
+    val ImagenReceta:String
 )
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MainScreen(navController: NavController,
-               viewModel: PantallaPrincipalScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+data class Recipe(
+    var Ajo: Boolean = false,
+    var Arroz: Boolean = false,
+    var Carne_Molida: Boolean = false,
+    var Cebolla: Boolean = false,
+    var Harina: Boolean = true,
+    var Huevos: Boolean = false,
+    var ImageUrl: String = "",
+    var Leche: Boolean = false,
+    var Nombre_Receta: String = "",
+    var Papa: Boolean = false,
+    var Pasos: String = "",
+    var Pasta: Boolean = false,
+    var Pimienta: Boolean = false,
+    var Pollo: Boolean = false,
+    var Post_id: String = "",
+    var Preparation_Time: String = "",
+    var Nombre_de_chef: String = "",
+    var Sal: Boolean = false
+)
 
-) {
-    val currentBackStackEntry = navController.currentBackStackEntryAsState()
-    LaunchedEffect(currentBackStackEntry.value) {
-        viewModel.fetchMatchingPosts()
+
+
+
+
+
+
+
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun MainScreen(
+        navController: NavController,
+        viewModel: PantallaPrincipalScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel() // It's a convention to start parameter names with a lowercase letter
+    ) {
+
+        LaunchedEffect(key1 = Unit) {
+            viewModel.loadDocumentIds()
+        }
+        val recipes by viewModel.recipes.observeAsState()
+
+        when {
+            recipes == null -> {
+                LoadingIndicator()
+            }
+            recipes!!.isEmpty() -> {
+                Text("No hay recetas", style = MaterialTheme.typography.bodyMedium)
+            }
+            else -> {
+                Composables(recipes!!, navController)
+            }
+        }
+
     }
 
-    val posts by viewModel.postsLiveData.observeAsState(initial = emptyList())
 
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun Composables(Recipes: List<Recipe>, navController: NavController){
+
+    val recetas = Recipes.map { recipe ->
+        // Assuming you have fields for 'chef' and 'image' in your Recipe data class
+        RecetasParaPreview(
+            name = recipe.Nombre_Receta,
+            cocinero = recipe.Nombre_de_chef, // Replace with actual chef name if available
+            tiempo = recipe.Preparation_Time,
+            ImagenReceta = recipe.ImageUrl // Make sure Recipe data class has an ImageUrl field
+        )
+    }
 
     val items = listOf(
         BottomNavigationItem(
@@ -130,9 +188,9 @@ fun MainScreen(navController: NavController,
                                 navController.navigate(item.ruta)
                             },
                             label = {
-                                    Text(
-                                        text = item.name
-                                    )
+                                Text(
+                                    text = item.name
+                                )
                             },
                             icon = {
                                 BadgedBox(
@@ -191,34 +249,12 @@ fun MainScreen(navController: NavController,
                             )
                         }
                     }
-
-                    if (posts.isNotEmpty()) {
-                        LazyColumn {
-                            items(posts) { post ->
-                                // Assuming post has all the required fields
-                                RecetaCard(
-                                    receta = RecetasParaPreview(
-                                        Nombre_Receta = post.Nombre_Receta ?: "",
-                                        Post_id = post.Post_id ?: "",
-                                        Preparation_Time = post.Preparation_Time ?: ""
-                                    ),
-                                    navController = navController
-                                )
-                            }
-                            item { Spacer(modifier = Modifier.height(60.dp)) }
+                    LazyColumn {
+                        items(recetas) { receta ->
+                            RecetaCard(receta = receta, navController)
                         }
-                    } else {
-                        // Display the message when there are no matching posts
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                text = "No hay recetas",
-                                style = MaterialTheme.typography.bodyLarge,
-                                textAlign = TextAlign.Center,
-                                color = ColorMain
-                            )
+                        item{
+                            Spacer(modifier = Modifier.height(60.dp))
                         }
                     }
 
@@ -228,10 +264,24 @@ fun MainScreen(navController: NavController,
             }
         )
     }
+
+
+
+
+
+
+
+
+
+
 }
 
-
-
+@Composable
+fun LoadingIndicator() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator() // Material Design loading indicator
+    }
+}
 
 @Composable
 fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
@@ -261,7 +311,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
             ){
                 AsyncImage(
                     //Imagen provicional para preview
-                    model = "https://biencasero.clarin.com/advf/imagenes/4c28fc4fab6f6.jpg",
+                    model = "${receta.ImagenReceta}",
                     contentDescription = null,
                     modifier = Modifier
                         .size(130.dp)
@@ -273,7 +323,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
-                    text = "${receta.Nombre_Receta}",
+                    text = "${receta.name}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -281,7 +331,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     color = Color.White
                 )
                 Text(
-                    text = stringResource(id = R.string.by_chef) + "${receta.Post_id}",
+                    text = stringResource(id = R.string.by_chef) + "${receta.cocinero}",
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
@@ -289,7 +339,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     textAlign = TextAlign.End,
                 )
                 Text(
-                    text = "${receta.Preparation_Time} " + stringResource(id = R.string.minutos),
+                    text = "${receta.tiempo} " + stringResource(id = R.string.minutos),
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),

@@ -97,9 +97,6 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.4.0")
 
     implementation("androidx.compose.runtime:runtime-livedata")
-    implementation ("org.jetbrains.kotlin:kotlin-reflect")
-    implementation ("androidx.compose.runtime:runtime")
-
 
 
 }

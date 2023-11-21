@@ -68,6 +68,10 @@ class SingInViewModel: ViewModel() {
             }.addOnFailureListener{
                 Log.d("FailBase","Ocurrio error  ${it}")
             }
+
+
+
+
     }
 
 

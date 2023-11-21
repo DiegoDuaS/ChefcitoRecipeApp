@@ -17,3 +17,8 @@ object MySingleton {
     var Huevos = false
     var Leche = false
 }
+object SigletonMap{
+
+
+}
+
