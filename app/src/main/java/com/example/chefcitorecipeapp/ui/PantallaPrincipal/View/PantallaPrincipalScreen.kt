@@ -158,13 +158,13 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
         BottomNavigationItem(
             name = stringResource(id = R.string.despensa),
             iconoselected = Icons.Filled.List,
-            iconounselected = Icons.Outlined.List,
+            iconounselected = Icons.Filled.List,
             ruta = Screen.Despensa.route
         ),
         BottomNavigationItem(
             name = stringResource(id = R.string.nuevareceta),
             iconoselected = Icons.Filled.Add,
-            iconounselected = Icons.Outlined.Add,
+            iconounselected = Icons.Filled.Add,
             ruta = Screen.NewReceta.route
         )
     )
@@ -194,11 +194,6 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
                                 )
                             },
                             icon = {
-                                BadgedBox(
-                                    badge = {
-                                        Badge()
-                                    }
-                                ) {
                                     Icon(
                                         imageVector =
                                         if (index == selectedItemIndex) {
@@ -208,21 +203,17 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
                                         },
                                         contentDescription = null
                                     )
-
-                                }
                             }
                         )
                     }
                 }
             },
             content = {
-
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(color = Fondo)
                 ) {
-                    // Barra de aplicaciones
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -262,31 +253,7 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
                         }
                     }
                     else if (EmptyDocuments == true){
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(color = Fondo),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ){
-                            Text(
-                                text = stringResource(id = R.string.noavailablerecipy),
-                                style = MaterialTheme.typography.bodyLarge,
-                                modifier = Modifier
-                                    .padding(vertical = 0.dp)
-                                    .padding(horizontal = 4.dp),
-                                textAlign = TextAlign.Center,
-                                color = Color.White
-                            )
-                            Text(
-                                text = stringResource(id = R.string.gotodespensa),
-                                style = MaterialTheme.typography.bodyMedium,
-                                modifier = Modifier
-                                    .padding(vertical = 0.dp)
-                                    .padding(horizontal = 4.dp),
-                                textAlign = TextAlign.Center,
-                                color = Color.White
-                            )
-                        }
+                        ScreenNoRecipy()
                     }
 
                 }
@@ -295,10 +262,6 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
         )
     }
 }
-
-
-
-
 
 @Composable
 fun LoadingIndicator() {
@@ -378,11 +341,42 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
     }
 }
 
+@Composable
+fun ScreenNoRecipy(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Fondo),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Spacer(modifier = Modifier.height(200.dp))
+        Text(
+            text = stringResource(id = R.string.noavailablerecipy),
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier
+                .padding(vertical = 0.dp)
+                .padding(horizontal = 4.dp),
+            textAlign = TextAlign.Center,
+            color = Color.Black
+        )
+        Text(
+            text = stringResource(id = R.string.gotodespensa),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .padding(vertical = 0.dp)
+                .padding(horizontal = 4.dp),
+            textAlign = TextAlign.Center,
+            color = Color.Black
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun MainScreenPreview() {
     ChefcitoRecipeAppTheme {
         val navController = rememberNavController()
-        MainScreen(navController = navController)
+        //MainScreen(navController = navController)
+        ScreenNoRecipy()
     }
 }

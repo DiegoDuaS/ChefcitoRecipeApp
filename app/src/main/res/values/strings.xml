@@ -32,6 +32,8 @@
     <string name="usercreatedsuc">User created successfully</string>
     <string name="autenticando">Authenticating…</string>
     <string name="incorrectsignin">Incorrect email address or password.</string>
-    <string name="noavailablerecipy">There are no available recipies.</string>
+    <string name="noavailablerecipy">No available recipies.</string>
     <string name="gotodespensa">Go to the pantry to add ingridients.</string>
+    <string name="imageidnotnull">Fill the Image URL Parameter</string>
+    <string name="enterimageurl">Enter Image URL</string>
 </resources>

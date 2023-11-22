@@ -248,7 +248,7 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,viewModel: De
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = ingrediente.name,
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),

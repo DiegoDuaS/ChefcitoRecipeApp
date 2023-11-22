@@ -33,6 +33,8 @@
     <string name="usercreatedsuc">El usuario se ha creado correctamente.</string>
     <string name="autenticando">Autenticando…</string>
     <string name="incorrectsignin">Correo elctrónico o contraseña incorrecta.</string>
-    <string name="noavailablerecipy">No hay recetas disponibles.</string>
-    <string name="gotodespensa">Ve a la despensa para agregar ingredientes.</string>
+    <string name="noavailablerecipy">No hay recetas.</string>
+    <string name="gotodespensa">Agrega ingredientes en la despensa.</string>
+    <string name="imageidnotnull">Llena el paraméto de la imagen.</string>
+    <string name="enterimageurl">Ingresa la URL de la imagen.</string>
 </resources>

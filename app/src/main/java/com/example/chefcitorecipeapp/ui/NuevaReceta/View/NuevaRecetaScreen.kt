@@ -351,12 +351,33 @@ fun NewRecipeScreen(navController: NavController,
                                     if (showDialog) {
                                         Dialog(onDismissRequest = { showDialog = false }) {
                                             Surface {
-                                                Column(modifier = Modifier.padding(16.dp)) {
-                                                    Text(text = "Enter Image URL")
+                                                Column(
+                                                    modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .background(color = Fondo),
+                                                    horizontalAlignment = Alignment.CenterHorizontally
+                                                ){
+                                                    Text(
+                                                        text = stringResource(id = R.string.enterimageurl),
+                                                        style = MaterialTheme.typography.bodyMedium,
+                                                        modifier = Modifier
+                                                            .padding(vertical = 0.dp)
+                                                            .padding(horizontal = 4.dp),
+                                                        textAlign = TextAlign.Center,
+                                                        color = Color.Black
+                                                    )
                                                     TextField(
                                                         value = imageUrl,
                                                         onValueChange = { imageUrl = it },
-                                                        label = { Text("URL") },
+                                                        label = { Text(
+                                                            text = "URL",
+                                                            style = MaterialTheme.typography.bodyMedium,
+                                                            modifier = Modifier
+                                                                .padding(vertical = 0.dp)
+                                                                .padding(horizontal = 4.dp),
+                                                            textAlign = TextAlign.Center,
+                                                            color = Color.Black
+                                                        )},
                                                         singleLine = true,
                                                         modifier = Modifier
                                                             .fillMaxWidth()
@@ -364,8 +385,18 @@ fun NewRecipeScreen(navController: NavController,
                                                     )
                                                     Button(onClick = {
                                                         showDialog = false
-                                                    }) {
-                                                        Text("Submit")
+                                                        },
+                                                        colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                                                    ){
+                                                        Text(
+                                                            text = stringResource(id = R.string.enter),
+                                                            style = MaterialTheme.typography.bodySmall,
+                                                            modifier = Modifier
+                                                                .padding(vertical = 0.dp)
+                                                                .padding(horizontal = 4.dp),
+                                                            textAlign = TextAlign.Center,
+                                                            color = Color.White
+                                                        )
                                                     }
                                                 }
                                             }
@@ -394,7 +425,7 @@ fun NewRecipeScreen(navController: NavController,
                                 Button(
                                     onClick = {
                                         if (imageUrl.isEmpty()) {
-                                            Toast.makeText(context, "Image URL must not be empty.", Toast.LENGTH_LONG).show()
+                                            Toast.makeText(context, R.string.imageidnotnull, Toast.LENGTH_LONG).show()
                                         } else if (pasos.isEmpty() || name.text.isEmpty() || time.text.isEmpty()) {
                                             Toast.makeText(context_two, R.string.notenoughpara, Toast.LENGTH_LONG).show()
                                         } else {
