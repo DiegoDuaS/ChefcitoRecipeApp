@@ -33,4 +33,6 @@
     <string name="usercreatedsuc">El usuario se ha creado correctamente.</string>
     <string name="autenticando">Autenticando…</string>
     <string name="incorrectsignin">Correo elctrónico o contraseña incorrecta.</string>
+    <string name="noavailablerecipy">No hay recetas disponibles.</string>
+    <string name="gotodespensa">Ve a la despensa para agregar ingredientes.</string>
 </resources>

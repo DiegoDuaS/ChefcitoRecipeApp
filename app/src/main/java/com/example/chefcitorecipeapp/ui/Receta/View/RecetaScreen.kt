@@ -37,6 +37,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.R
+import com.example.chefcitorecipeapp.ui.PantallaPrincipal.View.Recipe
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
@@ -48,9 +49,18 @@ data class IngredientesParaPreview(
     val tipo: String
 
 )
+@Composable
+fun RecetaScreen(
+    navController: NavController,
+    recipe: Recipe
+) {
+
+}
 
 @Composable
 fun RecetaScreen(navController: NavController){
+
+
 
     //Variables provicionales para visualización de la pantalla
     val ingredientesParaPreview = listOf(
@@ -286,3 +296,4 @@ fun RecetaScreenPreview() {
 
     }
 }
+

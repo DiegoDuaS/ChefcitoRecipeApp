@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.List
@@ -26,6 +25,7 @@ import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,13 +35,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -52,14 +53,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.chefcitorecipeapp.R
-import com.example.chefcitorecipeapp.ui.PantallaInicio.View.InicioScreen
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
-import com.example.chefcitorecipeapp.ui.theme.Tarjeta
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.navigation.Screen
-
+import com.example.chefcitorecipeapp.ui.PantallaPrincipal.Model.PantallaPrincipalScreenViewModel
 
 
 data class BottomNavigationItem(
@@ -73,22 +72,87 @@ data class BottomNavigationItem(
 data class RecetasParaPreview(
     val name:String,
     val cocinero: String,
-    val tiempo:String
+    val tiempo:String,
+    val ImagenReceta:String
 )
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun MainScreen(navController: NavController) {
+data class Recipe(
+    var Ajo: Boolean = false,
+    var Arroz: Boolean = false,
+    var Carne_Molida: Boolean = false,
+    var Cebolla: Boolean = false,
+    var Harina: Boolean = true,
+    var Huevos: Boolean = false,
+    var ImageUrl: String = "",
+    var Leche: Boolean = false,
+    var Nombre_Receta: String = "",
+    var Papa: Boolean = false,
+    var Pasos: String = "",
+    var Pasta: Boolean = false,
+    var Pimienta: Boolean = false,
+    var Pollo: Boolean = false,
+    var Post_id: String = "",
+    var Preparation_Time: String = "",
+    var Nombre_de_chef: String = "",
+    var Sal: Boolean = false
+)
 
-    //Lista provicional
-    val recetas = listOf(
-        RecetasParaPreview("Receta 1", "Chef 1", "30"),
-        RecetasParaPreview("Receta 2", "Chef 2", "45"),
-        RecetasParaPreview("Receta 3", "Chef 3", "20"),
-        RecetasParaPreview("Receta 4", "Chef 4", "15"),
-        RecetasParaPreview("Receta 5", "Chef 5", "120"),
-    )
+
+
+
+
+
+
+
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun MainScreen(
+        navController: NavController,
+        viewModel: PantallaPrincipalScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    ) {
+
+        LaunchedEffect(key1 = Unit) {
+            viewModel.loadDocumentIds()
+        }
+        val recipes by viewModel.recipes.observeAsState()
+        var EmptyDocuments: Boolean = true
+
+        when {
+            recipes == null -> {
+                LoadingIndicator()
+            }
+            recipes!!.isEmpty() -> {
+                EmptyDocuments = true
+                PantallaPrincipal(recipes!!, navController,EmptyDocuments)
+
+            }
+            else -> {
+                EmptyDocuments = false
+                PantallaPrincipal(recipes!!, navController,EmptyDocuments)
+            }
+        }
+
+
+    }
+
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, EmptyDocuments: Boolean){
+
+
+    val recetas = Recipes.map { recipe ->
+        RecetasParaPreview(
+            name = recipe.Nombre_Receta,
+            cocinero = recipe.Nombre_de_chef,
+            tiempo = recipe.Preparation_Time,
+            ImagenReceta = recipe.ImageUrl
+        )
+    }
 
     val items = listOf(
         BottomNavigationItem(
@@ -125,9 +189,9 @@ fun MainScreen(navController: NavController) {
                                 navController.navigate(item.ruta)
                             },
                             label = {
-                                    Text(
-                                        text = item.name
-                                    )
+                                Text(
+                                    text = item.name
+                                )
                             },
                             icon = {
                                 BadgedBox(
@@ -152,6 +216,7 @@ fun MainScreen(navController: NavController) {
                 }
             },
             content = {
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -186,15 +251,43 @@ fun MainScreen(navController: NavController) {
                             )
                         }
                     }
-                    LazyColumn {
-                        items(recetas){ receta ->
-                            RecetaCard(receta = receta, navController)
-                        }
-                        item{
-                            Spacer(modifier = Modifier.height(60.dp))
+                    if (EmptyDocuments == false) {
+                        LazyColumn {
+                            items(recetas) { receta ->
+                                RecetaCard(receta = receta, navController)
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(60.dp))
+                            }
                         }
                     }
-
+                    else if (EmptyDocuments == true){
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(color = Fondo),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ){
+                            Text(
+                                text = stringResource(id = R.string.noavailablerecipy),
+                                style = MaterialTheme.typography.bodyLarge,
+                                modifier = Modifier
+                                    .padding(vertical = 0.dp)
+                                    .padding(horizontal = 4.dp),
+                                textAlign = TextAlign.Center,
+                                color = Color.White
+                            )
+                            Text(
+                                text = stringResource(id = R.string.gotodespensa),
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier
+                                    .padding(vertical = 0.dp)
+                                    .padding(horizontal = 4.dp),
+                                textAlign = TextAlign.Center,
+                                color = Color.White
+                            )
+                        }
+                    }
 
                 }
 
@@ -205,6 +298,14 @@ fun MainScreen(navController: NavController) {
 
 
 
+
+
+@Composable
+fun LoadingIndicator() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator()
+    }
+}
 
 @Composable
 fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
@@ -234,7 +335,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
             ){
                 AsyncImage(
                     //Imagen provicional para preview
-                    model = "https://biencasero.clarin.com/advf/imagenes/4c28fc4fab6f6.jpg",
+                    model = "${receta.ImagenReceta}",
                     contentDescription = null,
                     modifier = Modifier
                         .size(130.dp)

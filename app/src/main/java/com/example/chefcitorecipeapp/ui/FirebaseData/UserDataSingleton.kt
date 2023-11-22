@@ -1,4 +1,7 @@
 package com.example.chefcitorecipeapp.ui.FirebaseData
+
+import com.example.chefcitorecipeapp.ui.PantallaPrincipal.View.Recipe
+
 object MySingleton {
     var userID: String? = ""
     var documentID: String = ""
@@ -17,3 +20,8 @@ object MySingleton {
     var Huevos = false
     var Leche = false
 }
+object RecipeSingleton {
+    var currentRecipe: Recipe? = null
+}
+
+
