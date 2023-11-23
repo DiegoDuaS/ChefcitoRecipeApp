@@ -35,7 +35,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -68,66 +67,48 @@ fun SigninScreen(navController: NavController,
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colorResource(id = R.color.fondo))
+            .background(color = Fondo)
     ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = colorResource(id = R.color.fondo)),
+                .background(color = Fondo),
             contentAlignment = Alignment.Center
         ){
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = colorResource(id = R.color.fondo)),
+                    .background(color = Fondo),
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-                Card(
+                Image(
+                    painter = painterResource(id = R.drawable.chefcitologo),
+                    contentDescription = null,
+                    modifier = Modifier.size(100.dp)
+                )
+                Text(
+                    text = "Chefcito",
+                    style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier
-                        .background(color = colorResource(id = R.color.fondo))
-                        .width(300.dp)
-                        .height(220.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = colorResource(id = R.color.colorMain),
-                    )
-                ){
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = colorResource(id = R.color.colorMain)),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ){
-                        Image(
-                            painter = painterResource(id = R.drawable.chefcitologo),
-                            contentDescription = null,
-                            modifier = Modifier.size(100.dp)
-                        )
-                        Text(
-                            text = "Chefcito",
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = colorResource(id = R.color.white)
-                        )
-                    }
-                }
+                        .padding(vertical = 0.dp)
+                        .padding(horizontal = 4.dp),
+                    textAlign = TextAlign.Center,
+                    color = Color.Black
+                )
                 Spacer(modifier = Modifier.height(16.dp))
                 Card(
                     modifier = Modifier
-                        .background(color = colorResource(id = R.color.fondo))
+                        .background(color = Fondo)
                         .width(300.dp)
-                        .height(350.dp),
+                        .height(290.dp),
                     colors = CardDefaults.cardColors(
-                        containerColor = colorResource(id = R.color.colorMain),
+                        containerColor = ColorMain,
                     )
                 ){
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(color = colorResource(id = R.color.colorMain)),
+                            .background(color = ColorMain),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(16.dp))
@@ -138,7 +119,7 @@ fun SigninScreen(navController: NavController,
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),
                             textAlign = TextAlign.Center,
-                            color = colorResource(id = R.color.white)
+                            color = Color.White
                         )
                         Spacer(modifier = Modifier.height(16.dp))
                         TextField(
@@ -152,7 +133,7 @@ fun SigninScreen(navController: NavController,
                                     .padding(vertical = 0.dp)
                                     .padding(horizontal = 4.dp),
                                 textAlign = TextAlign.Center,
-                                color = colorResource(id = R.color.blackinicio)
+                                color = Color.Black
                             ) },
                             singleLine = true
                         )
@@ -168,7 +149,7 @@ fun SigninScreen(navController: NavController,
                                     .padding(vertical = 0.dp)
                                     .padding(horizontal = 4.dp),
                                 textAlign = TextAlign.Center,
-                                color = colorResource(id = R.color.blackinicio)
+                                color = Color.Black
                             )},
                             singleLine = true,
                             visualTransformation = PasswordVisualTransformation(),
@@ -185,7 +166,7 @@ fun SigninScreen(navController: NavController,
 
                                 }
                             },
-                            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.white))
+                            colors = ButtonDefaults.buttonColors(containerColor = Fondo)
                         ){
                             Text(
                                 text = stringResource(id = R.string.enter),
@@ -194,23 +175,21 @@ fun SigninScreen(navController: NavController,
                                     .padding(vertical = 0.dp)
                                     .padding(horizontal = 4.dp),
                                 textAlign = TextAlign.Center,
-                                color = colorResource(id = R.color.black)
+                                color = Color.Black
                             )
                         }
-
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = stringResource(id = R.string.mensajestart),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier
-                                .padding(vertical = 0.dp)
-                                .padding(horizontal = 4.dp),
-                            textAlign = TextAlign.Center,
-                            color = colorResource(id = R.color.white)
-                        )
                     }
                 }
-
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(id = R.string.mensajestart),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier
+                        .padding(vertical = 0.dp)
+                        .padding(horizontal = 4.dp),
+                    textAlign = TextAlign.Center,
+                    color = Color.Black
+                )
 
             }
         }
@@ -222,7 +201,6 @@ fun SigninScreen(navController: NavController,
 fun SigninScreenPreview() {
     ChefcitoRecipeAppTheme {
         val navController = rememberNavController()
-        val signinview = SingInViewModel()
-        SigninScreen(navController = navController, signinview)
+        SigninScreen(navController = navController)
     }
 }

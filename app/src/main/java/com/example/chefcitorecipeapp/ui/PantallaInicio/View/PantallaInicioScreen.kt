@@ -33,7 +33,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -72,7 +71,7 @@ fun InicioScreen(navController: NavController,
 
         addStyle(
             SpanStyle(
-                color = colorResource(id = R.color.blackinicio),
+                color = Color.Black,
                 textDecoration = TextDecoration.Underline,
             ),
             start,
@@ -83,25 +82,25 @@ fun InicioScreen(navController: NavController,
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = colorResource(id =R.color.fondo))
+            .background(color = Fondo)
     ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = colorResource(id =R.color.fondo)),
+                .background(color = Fondo),
             contentAlignment = Alignment.Center
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = colorResource(id = R.color.fondo)),
+                    .background(color = Fondo),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
                         .size(250.dp)
-                        .background(color = colorResource(id = R.color.colorMain)),
+                        .background(color = ColorMain),
                     contentAlignment = Alignment.Center,
                 ) {
                     Image(
@@ -121,7 +120,7 @@ fun InicioScreen(navController: NavController,
                         .padding(vertical = 0.dp)
                         .padding(horizontal = 4.dp),
                     textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.blackinicio)
+                    color = Color.Black
                 )
                 Text(
                     text = stringResource(id = R.string.app_recetario),
@@ -130,7 +129,7 @@ fun InicioScreen(navController: NavController,
                         .padding(vertical = 0.dp)
                         .padding(horizontal = 4.dp),
                     textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.blackinicio)
+                    color = Color.Black
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -146,7 +145,7 @@ fun InicioScreen(navController: NavController,
                             .padding(vertical = 0.dp)
                             .padding(horizontal = 4.dp),
                         textAlign = TextAlign.Center,
-                        color = colorResource(id = R.color.blackinicio)
+                        color = Color.Black
                     ) },
                     singleLine = true
                 )
@@ -161,7 +160,7 @@ fun InicioScreen(navController: NavController,
                             .padding(vertical = 0.dp)
                             .padding(horizontal = 4.dp),
                         textAlign = TextAlign.Center,
-                        color = colorResource(id = R.color.blackinicio)
+                        color = Color.Black
                     )},
                     singleLine = true,
                     visualTransformation = PasswordVisualTransformation(),
@@ -190,7 +189,7 @@ fun InicioScreen(navController: NavController,
                             }
                         }
                     },
-                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.colorMain))
+                    colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
                 )
 
                 {
@@ -201,7 +200,7 @@ fun InicioScreen(navController: NavController,
                             .padding(vertical = 0.dp)
                             .padding(horizontal = 4.dp),
                         textAlign = TextAlign.Center,
-                        color = colorResource(id = R.color.white)
+                        color = Color.White
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
@@ -219,7 +218,7 @@ fun InicioScreen(navController: NavController,
                             .padding(vertical = 0.dp)
                             .padding(horizontal = 4.dp),
                         textAlign = TextAlign.Center,
-                        color = colorResource(id = R.color.blackinicio)
+                        color = Color.Black
                     )
                     ClickableText(
                         text = newuser,
