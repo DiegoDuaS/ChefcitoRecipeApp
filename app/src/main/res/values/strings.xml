@@ -32,8 +32,9 @@
     <string name="usercreatedsuc">User created successfully</string>
     <string name="autenticando">Authenticating…</string>
     <string name="incorrectsignin">Incorrect email address or password.</string>
-    <string name="noavailablerecipy">No available recipies.</string>
-    <string name="gotodespensa">Go to the pantry to add ingridients.</string>
+    <string name="noavailablerecipy">No available recipes.</string>
+    <string name="gotodespensa">Go to the pantry to add ingredients.</string>
     <string name="imageidnotnull">Fill the Image URL Parameter</string>
     <string name="enterimageurl">Enter Image URL</string>
+    <string name="imagensucc">Image Loaded</string>
 </resources>

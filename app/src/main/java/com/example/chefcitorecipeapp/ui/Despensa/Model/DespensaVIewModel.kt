@@ -21,10 +21,8 @@ class DespensaVIewModel: ViewModel() {
     val LecheState = MutableLiveData(MySingleton.Leche)
 
     fun updateFirestoreDocument() {
-        // Get the Firestore instance
         val db = FirebaseFirestore.getInstance()
 
-        // Create a map of values to update
         val updates = hashMapOf<String, Any>(
             "Ajo" to MySingleton.Ajo,
             "Arroz" to MySingleton.Arroz,
@@ -40,7 +38,6 @@ class DespensaVIewModel: ViewModel() {
             "Sal" to MySingleton.Sal,
         )
 
-        // Update the document in the 'users' collection
         MySingleton.documentID?.let { documentId ->
             db.collection("users").document(documentId).update(updates)
                 .addOnSuccessListener {

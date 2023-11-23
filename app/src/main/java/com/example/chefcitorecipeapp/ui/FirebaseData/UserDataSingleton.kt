@@ -20,8 +20,4 @@ object MySingleton {
     var Huevos = false
     var Leche = false
 }
-object RecipeSingleton {
-    var currentRecipe: Recipe? = null
-}
-
 

@@ -290,7 +290,7 @@ fun CardIngredientes(ingredients: List<String>){
 }
 
 @Composable
-fun CardPasos(pasos: String){
+fun CardPasos(pasos: List<String>){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -313,23 +313,24 @@ fun CardPasos(pasos: String){
                 textAlign = TextAlign.Center,
                 color = colorResource(id = R.color.white)
             )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.Start
-            ){
-                Text(
-                    text = "${pasos}", //Texto de pasos que pongas, hay que ponerle \n
-                    style = MaterialTheme.typography.bodySmall,
+            pasos.forEachIndexed { index, paso ->
+                Row(
                     modifier = Modifier
-                        .padding(vertical = 0.dp)
-                        .padding(horizontal = 4.dp),
-                    textAlign = TextAlign.Center,
-                    color = colorResource(id = R.color.white)
-                )
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "${paso}",
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier
+                            .padding(vertical = 0.dp)
+                            .padding(horizontal = 4.dp),
+                        textAlign = TextAlign.Center,
+                        color = Color.White
+                    )
+                }
             }
-
         }
     }
 }
@@ -346,9 +347,8 @@ fun RecetaScreenPreview() {
     }
 }
 
-fun formatSteps(steps: String): String {
+fun formatSteps(steps: String): List<String> {
     return steps.split('$')
-        .filter { it.isNotBlank() } 
-        .mapIndexed { index, step -> "${index + 1}. $step".trim() }
-        .joinToString("\n")
+        .filter { it.isNotBlank() }
+        .mapIndexed { index, step -> "${index + 1}. ${step.trim()}" }
 }

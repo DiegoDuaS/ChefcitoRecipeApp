@@ -13,9 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class PantallaPrincipalScreenViewModel : ViewModel() {
     private val firestore = FirebaseFirestore.getInstance()
 
-    // LiveData for document IDs
     private val _documentIds = MutableLiveData<List<String>>()
-    // LiveData for recipes
     private val _recipes = MutableLiveData<List<Recipe>>()
 
     private val _selectedRecipe = MutableLiveData<Recipe?>()
@@ -30,7 +28,6 @@ class PantallaPrincipalScreenViewModel : ViewModel() {
     fun loadDocumentIds() {
         encontrarIdsConCoincidencias { matchedIds ->
             _documentIds.postValue(matchedIds)
-            // Now fetch the recipe details for these IDs
             loadRecipesByIds(matchedIds)
         }
     }

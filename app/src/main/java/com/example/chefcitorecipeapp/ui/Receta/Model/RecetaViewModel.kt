@@ -24,7 +24,6 @@ class RecetaViewModel: ViewModel() {
                 val recipeParameters = documentSnapshot.toObject(RecipeParameters::class.java)
                 _recipeParameters.postValue(recipeParameters) // Post the result to LiveData
             } catch (e: Exception) {
-                // Handle exception
                 _recipeParameters.postValue(null)
             }
         }
@@ -34,12 +33,7 @@ class RecetaViewModel: ViewModel() {
             .filter { it.returnType.classifier == Boolean::class && it.get(localCopy) == true }
             .map { it.name }
     }
-    fun formatSteps(steps: String): String {
-        return steps.split('$')
-            .filter { it.isNotBlank() } // Filter out any empty steps
-            .mapIndexed { index, step -> "${index + 1}. $step" }
-            .joinToString("\n")
-    }
+
 
 
 

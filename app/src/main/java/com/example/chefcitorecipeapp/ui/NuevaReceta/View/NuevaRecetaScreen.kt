@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.R
 import com.example.chefcitorecipeapp.ui.NuevaReceta.Model.NuevaRecetaViewModel
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
@@ -367,7 +368,7 @@ fun NewRecipeScreen(navController: NavController,
                                                             .padding(vertical = 0.dp)
                                                             .padding(horizontal = 4.dp),
                                                         textAlign = TextAlign.Center,
-                                                        color = colorResource(id = R.color.black)
+                                                        color = colorResource(id = R.color.blackinicio)
                                                     )
                                                     TextField(
                                                         value = imageUrl,
@@ -379,7 +380,7 @@ fun NewRecipeScreen(navController: NavController,
                                                                 .padding(vertical = 0.dp)
                                                                 .padding(horizontal = 4.dp),
                                                             textAlign = TextAlign.Center,
-                                                            color = colorResource(id = R.color.black)
+                                                            color = colorResource(id = R.color.blackinicio)
                                                         )},
                                                         singleLine = true,
                                                         modifier = Modifier
@@ -415,16 +416,31 @@ fun NewRecipeScreen(navController: NavController,
                                         horizontalAlignment = Alignment.CenterHorizontally,
                                         verticalArrangement = Arrangement.Center
                                     ) {
-                                        Spacer(modifier = Modifier.height(130.dp))
-                                        Text(
-                                            text = stringResource(id = R.string.agregar_imagen),
-                                            style = MaterialTheme.typography.bodyMedium,
-                                            modifier = Modifier
-                                                .padding(vertical = 0.dp)
-                                                .padding(horizontal = 4.dp),
-                                            textAlign = TextAlign.Center,
-                                            color = colorResource(id = R.color.black)
-                                        )
+                                        if(imageUrl == ""){
+                                            Spacer(modifier = Modifier.height(130.dp))
+                                            Text(
+                                                text = stringResource(id = R.string.agregar_imagen),
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                modifier = Modifier
+                                                    .padding(vertical = 0.dp)
+                                                    .padding(horizontal = 4.dp),
+                                                textAlign = TextAlign.Center,
+                                                color = colorResource(id = R.color.black)
+                                            )
+                                        }
+                                        else{
+                                            Spacer(modifier = Modifier.height(130.dp))
+                                            Text(
+                                                text = stringResource(id = R.string.imagensucc),
+                                                style = MaterialTheme.typography.bodyMedium,
+                                                modifier = Modifier
+                                                    .padding(vertical = 0.dp)
+                                                    .padding(horizontal = 4.dp),
+                                                textAlign = TextAlign.Center,
+                                                color = colorResource(id = R.color.black)
+                                            )
+
+                                        }
                                     }
                                 }
                                 Button(

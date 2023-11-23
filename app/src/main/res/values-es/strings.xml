@@ -37,4 +37,6 @@
     <string name="gotodespensa">Agrega ingredientes en la despensa.</string>
     <string name="imageidnotnull">Llena el paraméto de la imagen.</string>
     <string name="enterimageurl">Ingresa la URL de la imagen.</string>
+    <string name="imagensucc">Imagen Cargada-</string>
+
 </resources>

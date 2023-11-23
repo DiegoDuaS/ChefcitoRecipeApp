@@ -173,20 +173,37 @@ fun InicioScreen(navController: NavController,
 
                 Button(
                     onClick = {
-                        viewModel.signInWithEmailAndPassword(user, password) { success ->
-                            if (success) {
-                                Toast.makeText(context, R.string.autenticando, Toast.LENGTH_SHORT).show()
-                                viewModel.EncontrarIdDelDocumento(MySingleton.userID) { documentId ->
-                                    if (documentId.isNotEmpty()) {
-                                        viewModel.ObtenerParametrosDelDocumento(MySingleton.documentID)
-                                        navController.navigate("Main") {
-                                            popUpTo("Authentication") { inclusive = false }
+
+                        if(user == "" || password == ""){
+                            Toast.makeText(
+                                context,
+                                R.string.notenoughpara,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }else {
+                            viewModel.signInWithEmailAndPassword(user, password) { success ->
+                                if (success) {
+                                    Toast.makeText(
+                                        context,
+                                        R.string.autenticando,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    viewModel.EncontrarIdDelDocumento(MySingleton.userID) { documentId ->
+                                        if (documentId.isNotEmpty()) {
+                                            viewModel.ObtenerParametrosDelDocumento(MySingleton.documentID)
+                                            navController.navigate("Main") {
+                                                popUpTo("Authentication") { inclusive = false }
+                                            }
                                         }
                                     }
-                                }
 
-                            } else {
-                                Toast.makeText(context, R.string.incorrectsignin, Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        R.string.incorrectsignin,
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                             }
                         }
                     },
