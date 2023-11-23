@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -118,7 +120,7 @@ fun PantallaReceta(
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Fondo)
+            .background(color = colorResource(id =R.color.fondo))
     ) {
         Box(
             modifier = Modifier
@@ -135,7 +137,7 @@ fun PantallaReceta(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(80.dp)
-                        .background(color = ColorMain),
+                        .background(color = colorResource(id = R.color.colorMain)),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -163,7 +165,7 @@ fun PantallaReceta(
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),
                             textAlign = TextAlign.Center,
-                            color = Color.White
+                            color = colorResource(id = R.color.white)
                         )
                     }
                 }
@@ -186,9 +188,10 @@ fun PantallaReceta(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(16.dp))
                                     .height(50.dp)
-                                    .background(color = ColorMain),
+                                    .background(color = colorResource(id = R.color.colorMain)),
                                 contentAlignment = Alignment.Center
                             ){
+                                Spacer(modifier = Modifier.width(10.dp))
                                 Text(
                                     text = stringResource(id = R.string.by_chef) + LocalCopy.Nombre_de_chef,
                                     style = MaterialTheme.typography.bodyMedium,
@@ -196,26 +199,29 @@ fun PantallaReceta(
                                         .padding(vertical = 0.dp)
                                         .padding(horizontal = 4.dp),
                                     textAlign = TextAlign.Center,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.white)
                                 )
+                                Spacer(modifier = Modifier.width(10.dp))
                             }
                             Spacer(modifier = Modifier.height(16.dp))
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(16.dp))
                                     .height(50.dp)
-                                    .background(color = ColorMain),
+                                    .background(color = colorResource(id = R.color.colorMain)),
                                 contentAlignment = Alignment.Center
                             ){
+                                Spacer(modifier = Modifier.width(10.dp))
                                 Text(
-                                    text = stringResource(id = R.string.preparation_time)+LocalCopy.Preparation_Time,
+                                    text = stringResource(id = R.string.preparation_time)+LocalCopy.Preparation_Time + " min",
                                     style = MaterialTheme.typography.bodyMedium,
                                     modifier = Modifier
                                         .padding(vertical = 0.dp)
                                         .padding(horizontal = 4.dp),
                                     textAlign = TextAlign.Center,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.white)
                                 )
+                                Spacer(modifier = Modifier.width(10.dp))
                             }
                             Spacer(modifier = Modifier.height(16.dp))
                             CardIngredientes(ingredients = ingredientesParaPreview)
@@ -241,9 +247,9 @@ fun CardIngredientes(ingredients: List<String>){
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = Fondo),
+            .background(color = colorResource(id =R.color.fondo)),
         colors = CardDefaults.cardColors(
-            containerColor = ColorMain
+            containerColor = colorResource(id = R.color.colorMain)
         ),
     ){
         Column(modifier = Modifier
@@ -257,10 +263,9 @@ fun CardIngredientes(ingredients: List<String>){
                     .padding(vertical = 0.dp)
                     .padding(horizontal = 4.dp),
                 textAlign = TextAlign.Center,
-                color = Color.White
+                color = colorResource(id = R.color.white)
             )
             ingredients.forEachIndexed { index, ingredient ->
-                //ACA VA EL IF
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -268,13 +273,14 @@ fun CardIngredientes(ingredients: List<String>){
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(
-                        text = "${ingredient}",
+                        text = "- ${ingredient}",
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
                             .padding(horizontal = 4.dp),
                         textAlign = TextAlign.Center,
-                        color = Color.White
+                        color = colorResource(id = R.color.white),
+                        softWrap = true
                     )
                 }
 
@@ -289,9 +295,9 @@ fun CardPasos(pasos: String){
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = Fondo),
+            .background(color = colorResource(id = R.color.fondo)),
         colors = CardDefaults.cardColors(
-            containerColor = ColorMain
+            containerColor = colorResource(id = R.color.colorMain)
         ),
     ){
         Column(modifier = Modifier
@@ -305,7 +311,7 @@ fun CardPasos(pasos: String){
                     .padding(vertical = 0.dp)
                     .padding(horizontal = 4.dp),
                 textAlign = TextAlign.Center,
-                color = Color.White
+                color = colorResource(id = R.color.white)
             )
             Row(
                 modifier = Modifier
@@ -320,7 +326,7 @@ fun CardPasos(pasos: String){
                         .padding(vertical = 0.dp)
                         .padding(horizontal = 4.dp),
                     textAlign = TextAlign.Center,
-                    color = Color.White
+                    color = colorResource(id = R.color.white)
                 )
             }
 

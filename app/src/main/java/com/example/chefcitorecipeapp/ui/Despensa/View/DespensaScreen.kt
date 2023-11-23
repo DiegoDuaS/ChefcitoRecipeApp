@@ -50,6 +50,7 @@ import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 
 
 data class IngredientesParaPreview(
@@ -85,25 +86,25 @@ fun DespensaScreen(navController: NavController,
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Fondo)
+            .background(color = colorResource(id = R.color.fondo))
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Fondo),
+                .background(color = colorResource(id = R.color.fondo)),
             contentAlignment = Alignment.TopCenter
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(color = Fondo),
+                    .background(color = colorResource(id = R.color.fondo)),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(80.dp)
-                        .background(color = ColorMain),
+                        .background(color = colorResource(id = R.color.colorMain)),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -131,7 +132,7 @@ fun DespensaScreen(navController: NavController,
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),
                             textAlign = TextAlign.Center,
-                            color = Color.White
+                            color = colorResource(id = R.color.white)
                         )
 
                     }
@@ -147,7 +148,7 @@ fun DespensaScreen(navController: NavController,
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(color = Fondo),
+                                .background(color = colorResource(id = R.color.fondo)),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ){
                             val context = LocalContext.current
@@ -165,7 +166,7 @@ fun DespensaScreen(navController: NavController,
                                         .padding(vertical = 0.dp)
                                         .padding(horizontal = 4.dp),
                                     textAlign = TextAlign.Center,
-                                    color = Color.White
+                                    color = colorResource(id = R.color.white)
                                 )
                             }
                         }
@@ -186,7 +187,7 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,viewModel: De
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Fondo),
+            .background(color = colorResource(id = R.color.fondo)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ingredientes.forEach { ingrediente ->
@@ -210,10 +211,10 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,viewModel: De
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .background(color = Fondo)
+                    .background(color = colorResource(id = R.color.fondo))
                     .height(80.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = ColorMain,
+                    containerColor = colorResource(id = R.color.colorMain),
                 ),
             ) {
                 Box(
@@ -253,7 +254,7 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,viewModel: De
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),
                             textAlign = TextAlign.Center,
-                            color = Color.White
+                            color = colorResource(id = R.color.white)
                         )
                     }
                 }

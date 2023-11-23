@@ -45,6 +45,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -178,7 +179,7 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Fondo)
+            .background(color = colorResource(id = R.color.fondo))
     ) {
         Scaffold(
             bottomBar = {
@@ -214,7 +215,7 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(color = Fondo)
+                        .background(color = colorResource(id = R.color.fondo))
                 ) {
                     Box(
                         modifier = Modifier
@@ -278,13 +279,13 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(color = Fondo)
+            .background(color = colorResource(id = R.color.fondo))
             .clickable {
                 val id: String = receta.IdPost
                 navController.navigate("screen_receta/$id")
             },
         colors = CardDefaults.cardColors(
-            containerColor = ColorMain
+            containerColor = colorResource(id = R.color.colorMain)
         ),
     ){
         Row(
@@ -318,14 +319,14 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     modifier = Modifier
                         .padding(vertical = 2.dp),
                     textAlign = TextAlign.End,
-                    color = Color.White
+                    color = colorResource(id = R.color.white)
                 )
                 Text(
                     text = stringResource(id = R.string.by_chef) + "${receta.cocinero}",
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
-                    color = Color.White,
+                    color = colorResource(id = R.color.white),
                     textAlign = TextAlign.End,
                 )
                 Text(
@@ -333,7 +334,7 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier
                         .padding(vertical = 2.dp),
-                    color = Color.White,
+                    color = colorResource(id = R.color.white),
                     textAlign = TextAlign.End,
                 )
             }
@@ -349,7 +350,7 @@ fun ScreenNoRecipy(){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Fondo),
+            .background(color = colorResource(id = R.color.fondo)),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Spacer(modifier = Modifier.height(200.dp))
@@ -360,7 +361,7 @@ fun ScreenNoRecipy(){
                 .padding(vertical = 0.dp)
                 .padding(horizontal = 4.dp),
             textAlign = TextAlign.Center,
-            color = Color.Black
+            color = colorResource(id = R.color.black)
         )
         Text(
             text = stringResource(id = R.string.gotodespensa),
@@ -369,7 +370,7 @@ fun ScreenNoRecipy(){
                 .padding(vertical = 0.dp)
                 .padding(horizontal = 4.dp),
             textAlign = TextAlign.Center,
-            color = Color.Black
+            color = colorResource(id = R.color.black)
         )
     }
 }

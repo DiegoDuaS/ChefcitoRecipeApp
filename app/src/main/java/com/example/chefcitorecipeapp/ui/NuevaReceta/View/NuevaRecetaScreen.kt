@@ -45,6 +45,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -100,25 +101,25 @@ fun NewRecipeScreen(navController: NavController,
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Fondo)
+            .background(color = colorResource(id = R.color.fondo))
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Fondo),
+                .background(color = colorResource(id = R.color.fondo)),
             contentAlignment = Alignment.TopCenter
             ){
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = Fondo),
+                        .background(color = colorResource(id = R.color.fondo)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ){
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(80.dp)
-                        .background(color = ColorMain),
+                        .background(color = colorResource(id = R.color.colorMain)),
                     contentAlignment = Alignment.Center
                 ) {
                     Row(
@@ -146,7 +147,7 @@ fun NewRecipeScreen(navController: NavController,
                                 .padding(vertical = 0.dp)
                                 .padding(horizontal = 4.dp),
                             textAlign = TextAlign.Center,
-                            color = Color.White
+                            color = colorResource(id = R.color.white)
                         )
 
                     }
@@ -156,7 +157,7 @@ fun NewRecipeScreen(navController: NavController,
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(color = Fondo),
+                                    .background(color = colorResource(id = R.color.fondo)),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 OutlinedTextField(
@@ -171,7 +172,7 @@ fun NewRecipeScreen(navController: NavController,
                                                 .padding(vertical = 0.dp)
                                                 .padding(horizontal = 4.dp),
                                             textAlign = TextAlign.Center,
-                                            color = Color.Black
+                                            color = colorResource(id = R.color.blackinicio)
                                         )
                                     },
                                     singleLine = true,
@@ -190,7 +191,7 @@ fun NewRecipeScreen(navController: NavController,
                                                 .padding(vertical = 0.dp)
                                                 .padding(horizontal = 4.dp),
                                             textAlign = TextAlign.Center,
-                                            color = Color.Black
+                                            color = colorResource(id = R.color.blackinicio)
                                         )
                                     },
                                     singleLine = true,
@@ -202,15 +203,15 @@ fun NewRecipeScreen(navController: NavController,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(8.dp)
-                                        .background(color = Fondo),
+                                        .background(color = colorResource(id = R.color.fondo)),
                                     colors = CardDefaults.cardColors(
-                                        containerColor = ColorMain,
+                                        containerColor = colorResource(id = R.color.colorMain),
                                     ),
                                 ) {
                                     Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .background(color = ColorMain),
+                                            .background(color = colorResource(id = R.color.colorMain)),
                                         horizontalAlignment = Alignment.CenterHorizontally,
 
                                     ) {
@@ -224,7 +225,7 @@ fun NewRecipeScreen(navController: NavController,
                                                     .padding(vertical = 0.dp)
                                                     .padding(horizontal = 4.dp),
                                                 textAlign = TextAlign.Center,
-                                                color = Color.White
+                                                color = colorResource(id = R.color.white)
                                             )
                                         }
                                         CheckBoxes(ingredientes = ingredientes){updatedList ->
@@ -237,15 +238,15 @@ fun NewRecipeScreen(navController: NavController,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(8.dp)
-                                        .background(color = Fondo),
+                                        .background(color = colorResource(id = R.color.fondo)),
                                     colors = CardDefaults.cardColors(
-                                        containerColor = ColorMain,
+                                        containerColor = colorResource(id = R.color.colorMain),
                                     ),
                                 ){
                                     Column(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .background(color = ColorMain),
+                                            .background(color = colorResource(id = R.color.colorMain)),
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ){
                                         Spacer(modifier = Modifier.width(8.dp))
@@ -256,7 +257,7 @@ fun NewRecipeScreen(navController: NavController,
                                                 .padding(vertical = 0.dp)
                                                 .padding(horizontal = 4.dp),
                                             textAlign = TextAlign.Center,
-                                            color = Color.White
+                                            color = colorResource(id = R.color.white)
                                         )
                                         Spacer(modifier = Modifier.width(30.dp))
                                         if (pasos.isEmpty()){
@@ -267,7 +268,7 @@ fun NewRecipeScreen(navController: NavController,
                                                     .padding(vertical = 0.dp)
                                                     .padding(horizontal = 4.dp),
                                                 textAlign = TextAlign.Center,
-                                                color = Color.White
+                                                color = colorResource(id = R.color.white)
                                             )
                                             Spacer(modifier = Modifier.width(10.dp))
                                         }
@@ -285,7 +286,7 @@ fun NewRecipeScreen(navController: NavController,
                                                             .padding(vertical = 0.dp)
                                                             .padding(horizontal = 4.dp),
                                                         textAlign = TextAlign.Center,
-                                                        color = Color.White
+                                                        color = colorResource(id = R.color.white)
                                                     )
                                                     Spacer(modifier = Modifier.width(8.dp))
                                                 }
@@ -306,7 +307,7 @@ fun NewRecipeScreen(navController: NavController,
                                                 .padding(vertical = 0.dp)
                                                 .padding(horizontal = 4.dp),
                                             textAlign = TextAlign.Center,
-                                            color = Color.Black
+                                            color = colorResource(id = R.color.blackinicio)
                                         )
                                     },
                                     singleLine = true,
@@ -323,7 +324,9 @@ fun NewRecipeScreen(navController: NavController,
                                             pasonuevo = TextFieldValue("")
                                         }
                                     },
-                                    colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(
+                                        id = R.color.colorMain
+                                    ))
 
                                 ) {
                                     Text(
@@ -333,15 +336,15 @@ fun NewRecipeScreen(navController: NavController,
                                             .padding(vertical = 0.dp)
                                             .padding(horizontal = 4.dp),
                                         textAlign = TextAlign.Center,
-                                        color = Color.White)
+                                        color = colorResource(id = R.color.white))
                                 }
                                 Card(
                                     modifier = Modifier
                                         .padding(8.dp)
-                                        .background(color = Fondo)
+                                        .background(color = colorResource(id = R.color.fondo))
                                         .width(300.dp)
                                         .height(300.dp)
-                                        .clickable {showDialog = true},
+                                        .clickable { showDialog = true },
                                     colors = CardDefaults.cardColors(
                                         containerColor = Color.LightGray,
                                     ),
@@ -353,8 +356,8 @@ fun NewRecipeScreen(navController: NavController,
                                             Surface {
                                                 Column(
                                                     modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .background(color = Fondo),
+                                                        .fillMaxWidth()
+                                                        .background(color = colorResource(id = R.color.fondo)),
                                                     horizontalAlignment = Alignment.CenterHorizontally
                                                 ){
                                                     Text(
@@ -364,7 +367,7 @@ fun NewRecipeScreen(navController: NavController,
                                                             .padding(vertical = 0.dp)
                                                             .padding(horizontal = 4.dp),
                                                         textAlign = TextAlign.Center,
-                                                        color = Color.Black
+                                                        color = colorResource(id = R.color.black)
                                                     )
                                                     TextField(
                                                         value = imageUrl,
@@ -376,7 +379,7 @@ fun NewRecipeScreen(navController: NavController,
                                                                 .padding(vertical = 0.dp)
                                                                 .padding(horizontal = 4.dp),
                                                             textAlign = TextAlign.Center,
-                                                            color = Color.Black
+                                                            color = colorResource(id = R.color.black)
                                                         )},
                                                         singleLine = true,
                                                         modifier = Modifier
@@ -386,7 +389,9 @@ fun NewRecipeScreen(navController: NavController,
                                                     Button(onClick = {
                                                         showDialog = false
                                                         },
-                                                        colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                                                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(
+                                                            id = R.color.colorMain
+                                                        ))
                                                     ){
                                                         Text(
                                                             text = stringResource(id = R.string.enter),
@@ -395,7 +400,7 @@ fun NewRecipeScreen(navController: NavController,
                                                                 .padding(vertical = 0.dp)
                                                                 .padding(horizontal = 4.dp),
                                                             textAlign = TextAlign.Center,
-                                                            color = Color.White
+                                                            color = colorResource(id = R.color.white)
                                                         )
                                                     }
                                                 }
@@ -418,7 +423,7 @@ fun NewRecipeScreen(navController: NavController,
                                                 .padding(vertical = 0.dp)
                                                 .padding(horizontal = 4.dp),
                                             textAlign = TextAlign.Center,
-                                            color = Color.Black
+                                            color = colorResource(id = R.color.black)
                                         )
                                     }
                                 }
@@ -443,7 +448,9 @@ fun NewRecipeScreen(navController: NavController,
                                     },
 
 
-                                    colors = ButtonDefaults.buttonColors(containerColor = ColorMain)
+                                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(
+                                        id = R.color.colorMain
+                                    ))
 
                                 ) {
                                     Text(
@@ -453,7 +460,7 @@ fun NewRecipeScreen(navController: NavController,
                                             .padding(vertical = 0.dp)
                                             .padding(horizontal = 4.dp),
                                         textAlign = TextAlign.Center,
-                                        color = Color.White)
+                                        color = colorResource(id = R.color.white))
                                 }
 
                             }
@@ -492,7 +499,7 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = ColorMain),
+            .background(color = colorResource(id = R.color.colorMain)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ingredientes.forEach { ingrediente ->
@@ -523,7 +530,7 @@ private fun CheckBoxes(ingredientes: List<IngredientesParaPreview>,
                             .padding(vertical = 0.dp)
                             .padding(horizontal = 4.dp),
                         textAlign = TextAlign.Center,
-                        color = Color.White
+                        color = colorResource(id = R.color.white)
                     )
                 }
 
