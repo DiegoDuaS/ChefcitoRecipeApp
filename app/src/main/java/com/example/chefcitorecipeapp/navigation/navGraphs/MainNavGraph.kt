@@ -2,8 +2,10 @@ package com.example.chefcitorecipeapp.navigation.navGraphs
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.example.chefcitorecipeapp.navigation.Screen
 import com.example.chefcitorecipeapp.ui.Despensa.View.DespensaScreen
 import com.example.chefcitorecipeapp.ui.NuevaReceta.View.NewRecipeScreen
@@ -18,7 +20,11 @@ fun NavGraphBuilder.mainNavGraph(navController: NavHostController){
         composable(route = Screen.MainScreen.route) {
             MainScreen(navController = navController)
         }
-        composable(route = Screen.Receta.route) {
+        composable(route = Screen.Receta.route,
+            arguments = listOf(navArgument("id"){
+                type = NavType.StringType
+            })
+            ) {
             RecetaScreen(navController = navController)
         }
         composable(route = Screen.Despensa.route) {

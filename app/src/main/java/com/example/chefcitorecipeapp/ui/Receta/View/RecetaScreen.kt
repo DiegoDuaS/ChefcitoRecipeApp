@@ -1,7 +1,7 @@
 package com.example.chefcitorecipeapp.ui.Receta.View
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,12 +19,19 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,20 +41,39 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.R
+<<<<<<< Updated upstream
 import com.example.chefcitorecipeapp.ui.PantallaPrincipal.View.Recipe
+=======
+import com.example.chefcitorecipeapp.ui.Receta.Model.RecetaViewModel
+>>>>>>> Stashed changes
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
-import com.example.chefcitorecipeapp.ui.theme.Tarjeta
 
-data class IngredientesParaPreview(
-    val name:String,
-    val cantidad: String,
-    val tipo: String
 
+data class RecipeParameters(
+    var Ajo: Boolean = false,
+    var Arroz: Boolean = false,
+    var Carne_Molida: Boolean = false,
+    var Cebolla: Boolean = false,
+    var Harina: Boolean = true,
+    var Huevos: Boolean = false,
+    var ImageUrl: String = "",
+    var Leche: Boolean = false,
+    var Nombre_Receta: String = "",
+    var Papa: Boolean = false,
+    var Pasos: String = "",
+    var Pasta: Boolean = false,
+    var Pimienta: Boolean = false,
+    var Pollo: Boolean = false,
+    var Post_id: String = "",
+    var Preparation_Time: String = "",
+    var Nombre_de_chef: String = "",
+    var Sal: Boolean = false
 )
 @Composable
 fun RecetaScreen(
@@ -58,8 +84,48 @@ fun RecetaScreen(
 }
 
 @Composable
-fun RecetaScreen(navController: NavController){
+fun RecetaScreen(navController: NavController,
+                 viewModel: RecetaViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 
+){
+    var navBackStackEntry = navController.currentBackStackEntryAsState().value
+    var id = navBackStackEntry?.arguments?.getString("id")
+    val recipeParameters by viewModel.recipeParameters.observeAsState()
+    var localCopyOfRecipeParameters: RecipeParameters? = null
+    val ingredientesParaPreview = remember { mutableStateListOf<String>() }
+
+
+
+    LaunchedEffect(id) {
+        id?.let { viewModel.getRecipeParameters(it) }
+    }
+    recipeParameters?.let {
+
+    }
+
+    recipeParameters?.let { params ->
+        localCopyOfRecipeParameters = params.copy()
+
+        ingredientesParaPreview.clear()
+        ingredientesParaPreview.addAll(viewModel.getTrueIngredients(localCopyOfRecipeParameters!!))
+
+        PantallaReceta(navController, localCopyOfRecipeParameters!!,ingredientesParaPreview)
+    }
+
+    }
+
+
+
+@SuppressLint("UnrememberedMutableState")
+@Composable
+fun PantallaReceta(
+    navController: NavController,
+    LocalCopy: RecipeParameters,
+    ingredientesParaPreview: SnapshotStateList<String>
+){
+    val pasos = formatSteps(LocalCopy.Pasos)
+
+<<<<<<< Updated upstream
 
 
     //Variables provicionales para visualización de la pantalla
@@ -77,6 +143,8 @@ fun RecetaScreen(navController: NavController){
         "Paso 4",
         "Paso 5",
     )
+=======
+>>>>>>> Stashed changes
 
     Surface(
         modifier = Modifier
@@ -120,7 +188,7 @@ fun RecetaScreen(navController: NavController){
                             )
                         }
                         Text(
-                            text = "'Nombre Receta'",
+                            text = LocalCopy.Nombre_Receta,
                             style = MaterialTheme.typography.bodyLarge,
                             modifier = Modifier
                                 .padding(vertical = 0.dp)
@@ -139,7 +207,7 @@ fun RecetaScreen(navController: NavController){
                         ){
                             Spacer(modifier = Modifier.height(16.dp))
                             AsyncImage(
-                                model = "https://biencasero.clarin.com/advf/imagenes/4c28fc4fab6f6.jpg",
+                                model = LocalCopy.ImageUrl,
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(250.dp)
@@ -153,7 +221,7 @@ fun RecetaScreen(navController: NavController){
                                 contentAlignment = Alignment.Center
                             ){
                                 Text(
-                                    text = stringResource(id = R.string.by_chef) + " Persona",
+                                    text = stringResource(id = R.string.by_chef) + LocalCopy.Nombre_de_chef,
                                     style = MaterialTheme.typography.bodyMedium,
                                     modifier = Modifier
                                         .padding(vertical = 0.dp)
@@ -171,7 +239,7 @@ fun RecetaScreen(navController: NavController){
                                 contentAlignment = Alignment.Center
                             ){
                                 Text(
-                                    text = stringResource(id = R.string.preparation_time),
+                                    text = stringResource(id = R.string.preparation_time)+LocalCopy.Preparation_Time,
                                     style = MaterialTheme.typography.bodyMedium,
                                     modifier = Modifier
                                         .padding(vertical = 0.dp)
@@ -190,11 +258,16 @@ fun RecetaScreen(navController: NavController){
             }
         }
     }
+
+
 }
 
 
+
+
+
 @Composable
-fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
+fun CardIngredientes(ingredients: List<String>){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -226,7 +299,11 @@ fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(
+<<<<<<< Updated upstream
                         text = "${ingredient.name}",
+=======
+                        text = "${ingredient}",
+>>>>>>> Stashed changes
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
@@ -242,7 +319,7 @@ fun CardIngredientes(ingredients: List<IngredientesParaPreview>){
 }
 
 @Composable
-fun CardPasos(pasos: List<String>){
+fun CardPasos(pasos: String){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -272,7 +349,11 @@ fun CardPasos(pasos: List<String>){
                 horizontalArrangement = Arrangement.Start
             ){
                 Text(
+<<<<<<< Updated upstream
                     text = "pasos", //Texto de pasos que pongas, hay que ponerle \n
+=======
+                    text = "${pasos}", //Texto de pasos que pongas, hay que ponerle \n
+>>>>>>> Stashed changes
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 0.dp)
@@ -292,8 +373,18 @@ fun RecetaScreenPreview() {
     ChefcitoRecipeAppTheme {
 
         val navController = rememberNavController()
-        RecetaScreen(navController = navController)
+        val ViewModel = RecetaViewModel()
+        RecetaScreen(navController = navController,ViewModel)
 
     }
 }
 
+<<<<<<< Updated upstream
+=======
+fun formatSteps(steps: String): String {
+    return steps.split('$')
+        .filter { it.isNotBlank() } // Filter out any empty steps
+        .mapIndexed { index, step -> "${index + 1}. $step".trim() } // Trim to remove any leading/trailing whitespace
+        .joinToString("\n") 
+}
+>>>>>>> Stashed changes

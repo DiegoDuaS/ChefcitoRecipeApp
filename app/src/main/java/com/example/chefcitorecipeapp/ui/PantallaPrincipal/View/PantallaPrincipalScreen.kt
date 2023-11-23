@@ -73,7 +73,12 @@ data class RecetasParaPreview(
     val name:String,
     val cocinero: String,
     val tiempo:String,
+<<<<<<< Updated upstream
     val ImagenReceta:String
+=======
+    val ImagenReceta:String,
+    val IdPost:String
+>>>>>>> Stashed changes
 )
 
 data class Recipe(
@@ -150,7 +155,12 @@ fun PantallaPrincipal(Recipes: List<Recipe>, navController: NavController, Empty
             name = recipe.Nombre_Receta,
             cocinero = recipe.Nombre_de_chef,
             tiempo = recipe.Preparation_Time,
+<<<<<<< Updated upstream
             ImagenReceta = recipe.ImageUrl
+=======
+            ImagenReceta = recipe.ImageUrl,
+            IdPost = recipe.Post_id
+>>>>>>> Stashed changes
         )
     }
 
@@ -278,7 +288,8 @@ fun RecetaCard(receta: RecetasParaPreview, navController: NavController ){
             .padding(8.dp)
             .background(color = Fondo)
             .clickable {
-                navController.navigate(Screen.Receta.route)
+                val id: String = receta.IdPost
+                navController.navigate("screen_receta/$id")
             },
         colors = CardDefaults.cardColors(
             containerColor = ColorMain
