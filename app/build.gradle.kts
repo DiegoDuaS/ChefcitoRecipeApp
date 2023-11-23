@@ -97,10 +97,7 @@ dependencies {
     implementation ("androidx.navigation:navigation-compose:2.4.0")
 
     implementation("androidx.compose.runtime:runtime-livedata")
-<<<<<<< Updated upstream
-=======
     implementation ("org.jetbrains.kotlin:kotlin-reflect")
->>>>>>> Stashed changes
 
 
 }

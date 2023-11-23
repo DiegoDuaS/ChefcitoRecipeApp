@@ -45,11 +45,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.chefcitorecipeapp.R
-<<<<<<< Updated upstream
-import com.example.chefcitorecipeapp.ui.PantallaPrincipal.View.Recipe
-=======
 import com.example.chefcitorecipeapp.ui.Receta.Model.RecetaViewModel
->>>>>>> Stashed changes
 import com.example.chefcitorecipeapp.ui.theme.ChefcitoRecipeAppTheme
 import com.example.chefcitorecipeapp.ui.theme.ColorMain
 import com.example.chefcitorecipeapp.ui.theme.Fondo
@@ -75,13 +71,6 @@ data class RecipeParameters(
     var Nombre_de_chef: String = "",
     var Sal: Boolean = false
 )
-@Composable
-fun RecetaScreen(
-    navController: NavController,
-    recipe: Recipe
-) {
-
-}
 
 @Composable
 fun RecetaScreen(navController: NavController,
@@ -125,26 +114,6 @@ fun PantallaReceta(
 ){
     val pasos = formatSteps(LocalCopy.Pasos)
 
-<<<<<<< Updated upstream
-
-
-    //Variables provicionales para visualización de la pantalla
-    val ingredientesParaPreview = listOf(
-        IngredientesParaPreview("Harina", "1", "Tazas"),
-        IngredientesParaPreview("Azúcar", "1", "Cucharadas"),
-        IngredientesParaPreview("Huevos", "2", "Unidades"),
-        IngredientesParaPreview("Leche", "1", "Tazas"),
-        IngredientesParaPreview("Mantquilla", "1/2", "Tazas"),
-    )
-    val pasos = listOf(
-        "Paso 1",
-        "Paso 2",
-        "Paso 3",
-        "Paso 4",
-        "Paso 5",
-    )
-=======
->>>>>>> Stashed changes
 
     Surface(
         modifier = Modifier
@@ -299,11 +268,7 @@ fun CardIngredientes(ingredients: List<String>){
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     Text(
-<<<<<<< Updated upstream
-                        text = "${ingredient.name}",
-=======
                         text = "${ingredient}",
->>>>>>> Stashed changes
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
@@ -349,11 +314,7 @@ fun CardPasos(pasos: String){
                 horizontalArrangement = Arrangement.Start
             ){
                 Text(
-<<<<<<< Updated upstream
-                    text = "pasos", //Texto de pasos que pongas, hay que ponerle \n
-=======
                     text = "${pasos}", //Texto de pasos que pongas, hay que ponerle \n
->>>>>>> Stashed changes
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier
                         .padding(vertical = 0.dp)
@@ -379,12 +340,9 @@ fun RecetaScreenPreview() {
     }
 }
 
-<<<<<<< Updated upstream
-=======
 fun formatSteps(steps: String): String {
     return steps.split('$')
-        .filter { it.isNotBlank() } // Filter out any empty steps
-        .mapIndexed { index, step -> "${index + 1}. $step".trim() } // Trim to remove any leading/trailing whitespace
-        .joinToString("\n") 
+        .filter { it.isNotBlank() } 
+        .mapIndexed { index, step -> "${index + 1}. $step".trim() }
+        .joinToString("\n")
 }
->>>>>>> Stashed changes
