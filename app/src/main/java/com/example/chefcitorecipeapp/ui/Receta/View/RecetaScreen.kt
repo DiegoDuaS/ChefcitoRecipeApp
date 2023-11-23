@@ -313,7 +313,7 @@ fun CardPasos(pasos: List<String>){
                     horizontalArrangement = Arrangement.Start
                 ){
                     Text(
-                        text = "- $paso",
+                        text = "$paso",
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier
                             .padding(vertical = 0.dp)
