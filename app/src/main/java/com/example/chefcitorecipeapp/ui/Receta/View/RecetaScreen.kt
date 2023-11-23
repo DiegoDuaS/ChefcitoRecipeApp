@@ -341,7 +341,7 @@ fun RecetaScreenPreview() {
 
 fun formatSteps(steps: String): List<String> {
     return steps.split('$')
-        .filter { it.isNotBlank() } // Filter out any empty steps
-        .mapIndexed { index, step -> "${index + 1}. ${step.trim()}" } // Add the step number and trim whitespace
+        .filter { it.isNotBlank() }
+        .mapIndexed { index, step -> "${index + 1}. ${step.trim()}" }
 }
 

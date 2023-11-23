@@ -66,7 +66,6 @@ fun DespensaScreen(navController: NavController,
 
 
 
-    //Lista provicional
     val ingredientes = listOf(
         IngredientesParaPreview("Pollo", 3, "Unidad"),
         IngredientesParaPreview("Carne Molida", 10, "Gramos"),

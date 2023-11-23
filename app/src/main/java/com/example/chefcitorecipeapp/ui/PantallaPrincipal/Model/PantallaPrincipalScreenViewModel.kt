@@ -13,9 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class PantallaPrincipalScreenViewModel : ViewModel() {
     private val firestore = FirebaseFirestore.getInstance()
 
-    // LiveData for document IDs
     private val _documentIds = MutableLiveData<List<String>>()
-    // LiveData for recipes
     private val _recipes = MutableLiveData<List<Recipe>>()
 
     private val _selectedRecipe = MutableLiveData<Recipe?>()
@@ -30,7 +28,6 @@ class PantallaPrincipalScreenViewModel : ViewModel() {
     fun loadDocumentIds() {
         encontrarIdsConCoincidencias { matchedIds ->
             _documentIds.postValue(matchedIds)
-            // Now fetch the recipe details for these IDs
             loadRecipesByIds(matchedIds)
         }
     }
@@ -45,7 +42,6 @@ class PantallaPrincipalScreenViewModel : ViewModel() {
                         "Harina", "Papa", "Cebolla", "Ajo",
                         "Sal", "Pimienta", "Huevos", "Leche")
 
-                    // Access the current values of MySingleton directly
                     val isMatchFound = fieldsToCheck.any { fieldName ->
                         val documentValue = document.getBoolean(fieldName) ?: false
                         val singletonValue = when(fieldName) {
@@ -94,7 +90,6 @@ class PantallaPrincipalScreenViewModel : ViewModel() {
 
         Tasks.whenAllSuccess<DocumentSnapshot>(tasks).addOnSuccessListener { documents ->
             documents.forEach { document ->
-                // Manually creating a Recipe object from the DocumentSnapshot
                 val recipe = Recipe(
                     Ajo = document.getBoolean("Ajo") ?: false,
                     Arroz = document.getBoolean("Arroz") ?: false,

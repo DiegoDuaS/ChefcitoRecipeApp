@@ -347,7 +347,6 @@ fun NewRecipeScreen(navController: NavController,
                                     ),
                                 ) {
 
-                                    //Aqui esta el codigo feo
                                     if (showDialog) {
                                         Dialog(onDismissRequest = { showDialog = false }) {
                                             Surface {

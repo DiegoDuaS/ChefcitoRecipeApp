@@ -47,7 +47,7 @@ class NuevaRecetaViewModel : ViewModel() {
             "Preparation_Time" to preparationTime.text,
             "Pasos" to stepsString,
             "ImageUrl" to imageUrl
-        ) + ingredientBooleans // Combine the maps
+        ) + ingredientBooleans
 
         FirebaseFirestore.getInstance().collection("posts").add(recipeMap)
             .addOnSuccessListener { documentReference ->

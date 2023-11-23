@@ -26,7 +26,6 @@ class PantallaInicioViewModel: ViewModel() {
                 if (task.isSuccessful) {
                     Log.d("Success", "signInWithEmailAndPassword logged in!!!")
 
-                    // These are now non-nullable Strings with the not-null assertion operator.
                     val userid = auth.currentUser?.uid
                     val Correo: String? = auth.currentUser!!.email
                    val Usuario = Correo!!.split("@").get(0)
@@ -34,10 +33,10 @@ class PantallaInicioViewModel: ViewModel() {
                     MySingleton.userID = userid
                     MySingleton.DisplayName = Usuario
 
-                    home(true) // Sign-in was successful, call home with true.
+                    home(true)
                 } else {
                     Log.d("Fail", "signInWithEmailAndPassword failed: ${task.exception?.message}")
-                    home(false) // Sign-in failed, call home with false.
+                    home(false)
                 }
             }
     }
@@ -52,15 +51,15 @@ class PantallaInicioViewModel: ViewModel() {
                     val userId = document.getString("user_id")
                     if (userIdToCompare == userId) {
                         MySingleton.documentID = document.id
-                        onDocumentIdFound(document.id) // Invoke the callback with the found document ID
+                        onDocumentIdFound(document.id)
                         return@addOnSuccessListener
                     }
                 }
-                onDocumentIdFound("") // Invoke the callback with empty string if not found
+                onDocumentIdFound("")
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents: ", exception)
-                onDocumentIdFound("") // Invoke the callback with empty string on failure
+                onDocumentIdFound("")
             }
     }
 
